@@ -1,4 +1,4 @@
-# /Volumes/Study/Projects/Atrium/atrium-gallery/.github/workflows/deploy.yml
+# /Volumes/Study/Projects/Cutare/cutare-gallery/.github/workflows/deploy.yml
 name: Deploy to GitHub Pages
 
 on:
