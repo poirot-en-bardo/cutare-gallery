@@ -14,10 +14,11 @@ const normalizedPath =
 const isArtisti = normalizedPath === '/artisti/' || normalizedPath.startsWith('/artisti/');
 const isLocatii = normalizedPath === '/locatii/' || normalizedPath.startsWith('/locatii/');
 const isContact = normalizedPath === '/contact/' || normalizedPath.startsWith('/contact/');
+const isTimeline = normalizedPath === '/' || normalizedPath === '/timeline/' || normalizedPath.startsWith('/timeline/');
+const isExpoziții = normalizedPath === '/expozitii/' || normalizedPath.startsWith('/expozitii/');
 const isExhibitionDetail =
   normalizedPath === '/exhibition/' || normalizedPath.startsWith('/exhibition/');
 const isArtistDetail = normalizedPath === '/artist/' || normalizedPath.startsWith('/artist/');
-const isExpoziții = !isArtisti && !isLocatii && !isContact && !isExhibitionDetail && !isArtistDetail;
 ---
 
 <!doctype html>
@@ -42,8 +43,11 @@ const isExpoziții = !isArtisti && !isLocatii && !isContact && !isExhibitionDeta
         <a href="./" class="site-logo">Galeria Cutare</a>
       </div>
       <nav class="site-nav" aria-label="Principal">
-        <a href="./" class={`nav-link ${isExpoziții ? 'is-active' : ''}`} aria-current={isExpoziții ? 'page' : undefined}>
+        <a href="expozitii/" class={`nav-link ${isExpoziții ? 'is-active' : ''}`} aria-current={isExpoziții ? 'page' : undefined}>
           Expoziții
+        </a>
+        <a href="timeline/" class={`nav-link ${isTimeline ? 'is-active' : ''}`} aria-current={isTimeline ? 'page' : undefined}>
+          Timeline
         </a>
         <a href="artisti/" class={`nav-link ${isArtisti ? 'is-active' : ''}`} aria-current={isArtisti ? 'page' : undefined}>
           Artiști

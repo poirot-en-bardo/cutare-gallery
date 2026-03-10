@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ExhibitionListSection from '../components/ExhibitionListSection.astro';
+import { getExhibitionsByStatus } from '../utils/exhibitions';
+import { formatDateRange } from '../utils/dates';
+
+const current = getExhibitionsByStatus('current');
+const upcoming = getExhibitionsByStatus('upcoming');
+const past = getExhibitionsByStatus('past');
+
+const lastPast = past.length > 0 ? past[past.length - 1] : null;
+const mostRecentCurrent = current.length > 0 ? current[current.length - 1] : null;
+const featured = mostRecentCurrent ?? upcoming[0] ?? lastPast ?? null;
+const hasFeatured = Boolean(featured);
+
+const featuredType = current.length > 0 ? 'current' : upcoming.length > 0 ? 'upcoming' : past.length > 0 ? 'past' : null;
+const featuredBadge =
+  featuredType === 'upcoming'
+    ? 'În curând'
+    : featuredType === 'current'
+      ? 'Expoziția curentă'
+      : 'Ultima expoziție';
+
+const currentList = [...current].reverse();
+const hasCurrentList = currentList.length > 1;
+
+const upcomingList = featuredType === 'upcoming' ? upcoming.slice(1) : upcoming;
+const hasUpcomingList = upcomingList.length > 0;
+
+const archiveLimit = 5;
+const archiveList = [...past].reverse();
+const archiveSource =
+  featuredType === 'past' && featured
+    ? archiveList.filter((exhibition) => exhibition.id !== featured.id)
+    : archiveList;
+const archivePreview = archiveSource.slice(0, archiveLimit);
+const hasArchivePreview = archivePreview.length > 0;
+const hasMoreArchive = archiveSource.length > archiveLimit;
+
+const listSections = [
+  hasCurrentList
+    ? {
+        key: 'current',
+        title: 'Expoziții curente',
+        exhibitions: currentList,
+      }
+    : null,
+  hasUpcomingList
+    ? {
+        key: 'upcoming',
+        title: 'În curând',
+        exhibitions: upcomingList,
+      }
+    : null,
+  hasArchivePreview
+    ? {
+        key: 'archive',
+        title: 'Arhiva',
+        exhibitions: archivePreview,
+        showMoreHref: hasMoreArchive ? 'past/' : undefined,
+      }
+    : null,
+].filter(Boolean);
+---
+
+<BaseLayout title="Expoziții | Galeria Cutare" description="Arhiva statica de expoziții pentru vizitarea in galerie.">
+  <section class="hero">
+    <h1 class="accent-title accent-title--decorated">Expoziții</h1>
+  </section>
+
+  {hasFeatured ? (
+    <section class="home-feature">
+      <a class="feature-card" href={`exhibition/${featured.id}/`}>
+        <div class="feature-media">
+          <div class="poster-frame">
+            <img class="poster-image" src={featured.thumbnail} alt={featured.title} loading="lazy" />
+          </div>
+          <span class="feature-badge">{featuredBadge}</span>
+        </div>
+        <div class="feature-content">
+          <h2>{featured.title}</h2>
+          <p class="feature-dates">{formatDateRange(featured.startDate, featured.endDate)}</p>
+          <p class="feature-location">
+            <span class="location-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M12 2.5c-3.59 0-6.5 2.9-6.5 6.48 0 4.47 6.5 12.52 6.5 12.52s6.5-8.05 6.5-12.52C18.5 5.4 15.59 2.5 12 2.5zm0 8.6a2.12 2.12 0 1 1 0-4.25 2.12 2.12 0 0 1 0 4.25z" />
+              </svg>
+            </span>
+            {featured.location}
+          </p>
+          <p class="feature-description">{featured.description}</p>
+          <span class="exhibition-link">Vezi expoziția</span>
+        </div>
+      </a>
+
+      {listSections.length > 0 &&
+        (listSections.length === 1 ? (
+          <ExhibitionListSection
+            title={listSections[0].title}
+            exhibitions={listSections[0].exhibitions}
+            sectionClass="home-archive"
+            headingLevel="h2"
+            showMoreHref={listSections[0].showMoreHref}
+          />
+        ) : (
+          <div class={`home-columns ${listSections.length === 3 ? 'home-columns--three' : ''}`}>
+            {listSections.map((section) => (
+              <ExhibitionListSection
+                title={section.title}
+                exhibitions={section.exhibitions}
+                sectionClass="home-list"
+                showMoreHref={section.showMoreHref}
+              />
+            ))}
+          </div>
+        ))}
+    </section>
+  ) : (
+    <section class="home-archive">
+      <p class="muted">Nu există încă expoziții publicate.</p>
+    </section>
+  )}
+</BaseLayout>

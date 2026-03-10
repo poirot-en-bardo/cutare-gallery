@@ -1,0 +1,151 @@
+---
+import { getExhibitionsByStatus } from '../utils/exhibitions';
+import { formatDate } from '../utils/dates';
+
+const current = getExhibitionsByStatus('current');
+const upcoming = getExhibitionsByStatus('upcoming');
+const past = getExhibitionsByStatus('past');
+
+const allExhibitions = [...current, ...upcoming, ...past];
+const toLocalTime = (dateString: string) => new Date(`${dateString}T00:00:00`).getTime();
+const now = new Date();
+
+const statusFor = (exhibition: { startDate: string; endDate: string }) => {
+  const start = new Date(`${exhibition.startDate}T00:00:00`);
+  const end = new Date(`${exhibition.endDate}T23:59:59`);
+  if (end < now) return 'past';
+  if (start > now) return 'upcoming';
+  return 'current';
+};
+
+const timelineSorted = [...allExhibitions].sort((a, b) => (
+  toLocalTime(b.startDate) - toLocalTime(a.startDate)
+));
+
+const labelText = {
+  upcoming: 'În curând',
+  current: 'Expoziții curente',
+  past: 'Arhivă',
+};
+
+const timelineEntries: Array<
+  | { type: 'label'; status: keyof typeof labelText }
+  | { type: 'exhibition'; status: keyof typeof labelText; exhibition: (typeof timelineSorted)[number] }
+> = [];
+
+const seenStatuses = new Set<keyof typeof labelText>();
+for (const exhibition of timelineSorted) {
+  const status = statusFor(exhibition) as keyof typeof labelText;
+  if (!seenStatuses.has(status)) {
+    timelineEntries.push({ type: 'label', status });
+    seenStatuses.add(status);
+  }
+  timelineEntries.push({ type: 'exhibition', status, exhibition });
+}
+
+const hasExhibitions = timelineSorted.length > 0;
+---
+
+<section class="hero">
+  <h1 class="accent-title accent-title--decorated">Expoziții</h1>
+</section>
+
+{hasExhibitions ? (
+  <section class="timeline" aria-label="Cronologia expozițiilor" data-timeline>
+    <div class="timeline-rail" aria-hidden="true"></div>
+    <div class="timeline-list">
+      {timelineEntries.map((entry) => (
+        entry.type === 'label' ? (
+          <div class={`timeline-label timeline-label--${entry.status}`} data-timeline-label data-status={entry.status}>
+            <span class="timeline-label-text">{labelText[entry.status]}</span>
+          </div>
+        ) : (
+          <div class={`timeline-row ${entry.status}`} data-timeline-row data-status={entry.status}>
+            <div class="timeline-marker">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-date">
+                <span class="timeline-date-line">{formatDate(entry.exhibition.startDate)}</span>
+                <span class="timeline-date-line">{formatDate(entry.exhibition.endDate)}</span>
+              </span>
+            </div>
+            <article class="timeline-card">
+              <a class="timeline-card-link" href={`exhibition/${entry.exhibition.id}/`}>
+                <div class="timeline-media">
+                  <div class="poster-frame">
+                    <img class="poster-image" src={entry.exhibition.thumbnail} alt={entry.exhibition.title} loading="lazy" />
+                  </div>
+                </div>
+                <div class="timeline-content">
+                  <h2>{entry.exhibition.title}</h2>
+                  <p class="feature-location">
+                    <span class="location-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" role="img" focusable="false">
+                        <path d="M12 2.5c-3.59 0-6.5 2.9-6.5 6.48 0 4.47 6.5 12.52 6.5 12.52s6.5-8.05 6.5-12.52C18.5 5.4 15.59 2.5 12 2.5zm0 8.6a2.12 2.12 0 1 1 0-4.25 2.12 2.12 0 0 1 0 4.25z" />
+                      </svg>
+                    </span>
+                    {entry.exhibition.location}
+                  </p>
+                  <p class="feature-description">{entry.exhibition.description}</p>
+                  <span class="exhibition-link">Vezi expoziția</span>
+                </div>
+              </a>
+            </article>
+          </div>
+        )
+      ))}
+    </div>
+  </section>
+) : (
+  <section class="home-archive">
+    <p class="muted">Nu există încă expoziții publicate.</p>
+  </section>
+)}
+
+<script is:inline>
+  const rows = Array.from(document.querySelectorAll('[data-timeline-row]'));
+  const labels = Array.from(document.querySelectorAll('[data-timeline-label]'));
+  const timeline = document.querySelector('[data-timeline]');
+  let ticking = false;
+
+  const updateActiveRow = () => {
+    ticking = false;
+    if (!rows.length) return;
+
+    const viewportCenter = window.innerHeight / 2;
+    let best = rows[0];
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    for (const row of rows) {
+      const rect = row.getBoundingClientRect();
+      const rowCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(rowCenter - viewportCenter);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        best = row;
+      }
+    }
+
+    for (const row of rows) {
+      row.classList.toggle('is-active', row === best);
+    }
+
+    const activeStatus = best?.dataset?.status;
+    if (timeline && activeStatus) {
+      timeline.setAttribute('data-active-status', activeStatus);
+    }
+    for (const label of labels) {
+      label.classList.toggle('is-active', label.dataset.status === activeStatus);
+    }
+  };
+
+  const requestUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(updateActiveRow);
+  };
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  window.addEventListener('load', requestUpdate);
+  requestUpdate();
+</script>
