@@ -114,6 +114,13 @@ img {
 .footer-links {
   margin-top: 0.75rem;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  justify-content: center;
+  width: 100%;
 }
 
 .footer-links a {
@@ -127,7 +134,6 @@ img {
 }
 
 .footer-separator {
-  margin: 0 0.5rem;
   color: var(--muted);
 }
 
@@ -895,6 +901,7 @@ img {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 600;
   color: var(--accent);
+  text-align: left;
 }
 
 .artist-bio {
@@ -914,9 +921,16 @@ img {
 }
 
 .artist-works-title {
-  margin: 1.4rem 0 0.75rem;
-  font-size: 1.2rem;
+  margin: 0 0 1.5rem;
+  font-size: 1.3rem;
   color: var(--accent);
+  text-align: left;
+}
+
+@media (min-width: 900px) {
+  .artist-works-title {
+    font-size: 1.7rem;
+  }
 }
 
 .artist-works-wrap {

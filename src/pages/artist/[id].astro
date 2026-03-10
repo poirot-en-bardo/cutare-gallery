@@ -59,17 +59,13 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
         <span>{artist.contact}</span>
       </p>
 
-      {artworksByArtist.length > 0 && (
-        <>
-          <h2 class="artist-works-title">Lucrări disponibile</h2>
-        </>
-      )}
     </div>
   </section>
   )}
 
   {artist && artworksByArtist.length > 0 && (
     <section class="artist-gallery">
+      <h2 class="artist-works-title">Lucrări disponibile</h2>
       <div class="artist-gallery-grid">
         {artworksByArtist.map((artwork) => (
           <a
