@@ -1387,7 +1387,7 @@ img {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 600;
   color: var(--accent);
-  text-align: left;
+  text-align: center;
 }
 
 .artist-bio {
@@ -1636,6 +1636,10 @@ img {
     grid-template-columns: minmax(220px, 300px) 1fr;
     align-items: start;
     column-gap: 2rem;
+  }
+
+  .artist-name {
+    text-align: left;
   }
 
 }
