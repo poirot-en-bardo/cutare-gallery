@@ -75,12 +75,46 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
 
   {artist && artworksByArtist.length > 0 && (
     <section class="artist-gallery">
+      <div class="artist-search" data-artwork-search>
+        <div class="artist-search-field">
+          <input
+            class="artist-search-input"
+            type="search"
+            placeholder="Caută lucrări..."
+            autocomplete="off"
+            aria-label="Caută lucrări"
+            data-artwork-search-input
+          />
+          <span class="artist-search-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              role="img"
+              focusable="false"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+          </span>
+        </div>
+      </div>
       <h2 class="artist-works-title">Lucrări disponibile</h2>
       <div class="artist-gallery-grid">
         {artworksByArtist.map((artwork) => (
           <a
             href={`exhibition/${artwork.exhibitionId}/?floor=${artwork.floorId}&room=${artwork.roomId}&artwork=${artwork.artworkId}`}
             class="artist-gallery-item"
+            data-artwork-card
+            data-artwork-title={artwork.artworkTitle}
+            data-artwork-year={artwork.year ?? ''}
+            data-artwork-description={artwork.description ?? ''}
+            data-artwork-exhibition={artwork.exhibitionTitle ?? ''}
           >
             <div class="artist-gallery-image">
               <img src={artwork.artworkImage} alt={artwork.artworkTitle} loading="lazy" />
@@ -109,11 +143,57 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
   )}
 </BaseLayout>
 
+<script is:inline>
+  const artworkSearchInput = document.querySelector('[data-artwork-search-input]');
+  const artworkCards = Array.from(document.querySelectorAll('[data-artwork-card]'));
+
+  const normalizeText = (value) => {
+    if (!value) return '';
+    return value
+      .toString()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  };
+
+  const updateArtworkCards = () => {
+    const query = normalizeText(artworkSearchInput?.value || '');
+    artworkCards.forEach((card) => {
+      const title = normalizeText(card.getAttribute('data-artwork-title'));
+      const year = normalizeText(card.getAttribute('data-artwork-year'));
+      const description = normalizeText(card.getAttribute('data-artwork-description'));
+      const exhibition = normalizeText(card.getAttribute('data-artwork-exhibition'));
+      const isMatch =
+        !query ||
+        title.includes(query) ||
+        year.includes(query) ||
+        description.includes(query) ||
+        exhibition.includes(query);
+      card.style.display = isMatch ? '' : 'none';
+    });
+  };
+
+  if (artworkSearchInput) {
+    artworkSearchInput.addEventListener('input', updateArtworkCards);
+  }
+</script>
+
 <style>
 .artist-gallery {
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: calc(1.75rem + 0.35rem);
+  padding-top: 1.75rem;
   border-top: 1px solid var(--line);
+}
+
+@media (max-width: 600px) {
+  .artist-gallery {
+    margin-top: calc(1.5rem + 0.22rem);
+    padding-top: 1.5rem;
+  }
+
+  .artist-search {
+    margin-top: 0.22rem;
+  }
 }
 
 .artist-gallery-grid {

@@ -294,6 +294,60 @@ img {
   margin: 2rem 0 1rem;
 }
 
+.artist-search {
+  margin: 0.5rem auto 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.artist-search-field {
+  width: min(560px, 100%);
+  position: relative;
+}
+
+.artist-search-input {
+  width: 100%;
+  padding: 0.9rem 3rem 0.9rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(93, 78, 123, 0.2);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.98), rgba(247, 243, 236, 0.85));
+  font-family: 'Newsreader', 'Times New Roman', serif;
+  font-size: 1.05rem;
+  color: var(--ink);
+  box-shadow: 0 16px 32px rgba(17, 17, 17, 0.08);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.artist-search-input::placeholder {
+  color: color-mix(in srgb, var(--accent) 45%, var(--muted));
+  letter-spacing: 0.02em;
+}
+
+.artist-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 18px 36px rgba(17, 17, 17, 0.12),
+    0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  transform: translateY(-1px);
+}
+
+.artist-search-icon {
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: color-mix(in srgb, var(--accent) 55%, var(--muted));
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.artist-search-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .exhibition-list {
   display: grid;
   grid-template-columns: 1fr;
