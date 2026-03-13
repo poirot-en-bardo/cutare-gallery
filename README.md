@@ -1,54 +1,32 @@
-# Astro Starter Kit: Minimal
+# Cutare Gallery
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Source code for the official website of **Galeria Cutare**, a contemporary art gallery in Câmpulung‑Muscel, Romania. The site showcases local artists, exhibitions, and events.  
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Live demo: [https://poirot-en-bardo.github.io/cutare-gallery/](https://poirot-en-bardo.github.io/cutare-gallery/)
 
-## 🚀 Project Structure
+## Features
 
-Inside of your Astro project, you'll see the following folders and files:
+- Built with **Astro**, a lightweight frontend framework
+- Responsive pages about exhibitions, artworks and artist info
+- Organised structure for managing content and images (hosted on Cloudinary)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Getting Started
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Install dependencies
+npm install
+### Run development server
+npm run dev
+### Build for production
+npm run build
+### Preview production build
+npm run preview
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Project Structure
+- `public/` – Static assets (images, icons)
+- `src/` – Pages, components, styles
+- `package.json` – Project info & scripts
+- `astro.config.mjs` – Astro configuration
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## Cache Busting
-
-To invalidate browser cache for static assets in `public/` that are generated through `withBase(...)`, set:
-
-```sh
-PUBLIC_ASSET_VERSION=2026-02-25
-```
-
-Only selected static paths are versioned (`/images/*`, `/favicon*`).
-External URLs (for example Cloudinary) and bundled hashed assets are left unchanged.
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Contributors
+- [poirot-en-bardo](https://github.com/poirot-en-bardo)  
+- [archada](https://github.com/archada)
