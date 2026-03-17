@@ -131,6 +131,8 @@ function parseArtistRows(rows, sourceName) {
   const titleIndex = headerRow.indexOf('titlu lucrare');
   const yearIndex = headerRow.indexOf('an');
   const descriptionIndex = headerRow.indexOf('descriere');
+  const floorIndex = headerRow.indexOf('etaj');
+  const roomIndex = headerRow.indexOf('sala');
 
   if (titleIndex === -1 || yearIndex === -1 || descriptionIndex === -1) {
     throw new Error(`Missing artwork columns in ${sourceName}`);
@@ -142,6 +144,8 @@ function parseArtistRows(rows, sourceName) {
     const title = normalizeCell(row[titleIndex]);
     const year = normalizeCell(row[yearIndex]);
     const description = normalizeCell(row[descriptionIndex]);
+    const floorId = floorIndex >= 0 ? normalizeCell(row[floorIndex]) : '';
+    const roomId = roomIndex >= 0 ? normalizeCell(row[roomIndex]) : '';
 
     if (!title && !year && !description) continue;
     if (!title) {
@@ -153,6 +157,8 @@ function parseArtistRows(rows, sourceName) {
       title,
       year: year || undefined,
       description: description || undefined,
+      floorId: floorId || undefined,
+      roomId: roomId || undefined,
     });
   }
 
@@ -279,13 +285,16 @@ for (const filePath of files) {
     const baseId = `${exhibitionFolderId}-${artistId}-${titleSlug}`;
     const id = ensureUniqueId(baseId, existingArtworkIds);
 
+    const floorId = artwork.floorId || defaultFloorId;
+    const roomId = artwork.roomId || defaultRoomId;
+
     artworks.push({
       id,
       title: artwork.title,
       artistId,
       imageUrl: '',
-      floorId: defaultFloorId,
-      roomId: defaultRoomId,
+      floorId,
+      roomId,
       year: artwork.year,
       description: artwork.description,
       forSale: true,
