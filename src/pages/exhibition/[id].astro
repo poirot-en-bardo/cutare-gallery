@@ -54,18 +54,22 @@ const spotifyPlaylistUrl =
       </div>
     </div>
     <div class="exhibition-summary">
-      <h1>{exhibition.title}</h1>
-      <p class="exhibition-dates">{formatDateRange(exhibition.startDate, exhibition.endDate)}</p>
-      <p class="exhibition-location">
-        <span class="location-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" role="img" focusable="false">
-            <path d="M12 2.5c-3.59 0-6.5 2.9-6.5 6.48 0 4.47 6.5 12.52 6.5 12.52s6.5-8.05 6.5-12.52C18.5 5.4 15.59 2.5 12 2.5zm0 8.6a2.12 2.12 0 1 1 0-4.25 2.12 2.12 0 0 1 0 4.25z" />
-          </svg>
-        </span>
-        <a class="location-link" href={exhibition.locationMapUrl} target="_blank" rel="noreferrer">
-          {exhibition.location}
-        </a>
-      </p>
+      <div class="exhibition-heading-row">
+        <h1>{exhibition.title}</h1>
+        <div class="exhibition-title-meta">
+          <p class="exhibition-dates">{formatDateRange(exhibition.startDate, exhibition.endDate)}</p>
+          <p class="exhibition-location">
+            <span class="location-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" focusable="false">
+                <path d="M12 2.5c-3.59 0-6.5 2.9-6.5 6.48 0 4.47 6.5 12.52 6.5 12.52s6.5-8.05 6.5-12.52C18.5 5.4 15.59 2.5 12 2.5zm0 8.6a2.12 2.12 0 1 1 0-4.25 2.12 2.12 0 0 1 0 4.25z" />
+              </svg>
+            </span>
+            <a class="location-link" href={exhibition.locationMapUrl} target="_blank" rel="noreferrer">
+              {exhibition.location}
+            </a>
+          </p>
+        </div>
+      </div>
       <div class="exhibition-description-group">
         {(descriptionBlocks.length > 0 ? descriptionBlocks : [exhibition.description]).map((block) => (
           <p class="exhibition-description">{block}</p>
