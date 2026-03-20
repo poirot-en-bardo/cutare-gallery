@@ -1071,9 +1071,10 @@ img {
 }
 
 .exhibition-summary .exhibition-dates {
-  color: var(--ink);
+  color: color-mix(in srgb, var(--ink) 76%, white);
   font-size: 1.06rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
 }
 
 .exhibition-description-group {
@@ -1091,8 +1092,9 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.16rem;
-  color: var(--ink);
+  color: color-mix(in srgb, var(--ink) 74%, white);
   font-size: 1.02rem;
+  line-height: 1.2;
 }
 
 .location-link {
@@ -1100,7 +1102,7 @@ img {
 }
 
 .location-link:hover {
-  color: var(--ink);
+  color: color-mix(in srgb, var(--ink) 88%, white);
 }
 
 .spotify-insert {
@@ -1135,7 +1137,7 @@ img {
 }
 
 .spotify-insert__logo {
-  height: 1.34rem;
+  height: 1.22rem;
   width: auto;
   display: block;
   flex: 0 0 auto;
@@ -1695,64 +1697,79 @@ img {
   .exhibition-heading-row {
     grid-template-columns: minmax(0, max-content) max-content;
     align-items: center;
-    column-gap: 3.75rem;
+    column-gap: 3.65rem;
   }
 
   .exhibition-title-meta {
     position: relative;
-    gap: 0.42rem;
+    gap: 0.24rem;
     padding: 0.82rem 0 0.82rem 1.12rem;
+    transform: translateY(0.28rem);
   }
 
   .exhibition-title-meta::before {
     content: '';
     position: absolute;
     left: 0;
+    right: 0;
     top: 0;
     bottom: 0;
-    width: 0.78rem;
     background:
       linear-gradient(
         180deg,
         color-mix(in srgb, var(--accent) 0%, transparent) 0%,
-        color-mix(in srgb, var(--accent) 36%, transparent) 14%,
-        color-mix(in srgb, var(--accent) 92%, transparent) 28%,
-        color-mix(in srgb, var(--accent) 30%, transparent) 48%,
-        color-mix(in srgb, var(--accent) 90%, transparent) 72%,
-        color-mix(in srgb, var(--accent) 16%, transparent) 88%,
+        color-mix(in srgb, var(--accent) 30%, transparent) 14%,
+        color-mix(in srgb, var(--accent) 78%, transparent) 28%,
+        color-mix(in srgb, var(--accent) 24%, transparent) 48%,
+        color-mix(in srgb, var(--accent) 74%, transparent) 72%,
+        color-mix(in srgb, var(--accent) 14%, transparent) 88%,
         color-mix(in srgb, var(--accent) 0%, transparent) 100%
       ) left center / 1.5px 100% no-repeat,
       linear-gradient(
         90deg,
-        color-mix(in srgb, var(--accent) 92%, transparent) 0%,
-        color-mix(in srgb, var(--accent) 28%, transparent) 78%,
+        color-mix(in srgb, var(--accent) 76%, transparent) 0%,
+        color-mix(in srgb, var(--accent) 22%, transparent) 78%,
         color-mix(in srgb, var(--accent) 0%, transparent) 100%
-      ) left 0.1rem top / 0.78rem 1.5px no-repeat,
+      ) left 0.1rem top / calc(100% + 0.18rem) 1.5px no-repeat;
+    opacity: 0.92;
+  }
+
+  .exhibition-title-meta--upcoming::before {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent) 0%, transparent) 0%,
+        color-mix(in srgb, var(--accent) 30%, transparent) 14%,
+        color-mix(in srgb, var(--accent) 78%, transparent) 28%,
+        color-mix(in srgb, var(--accent) 24%, transparent) 48%,
+        color-mix(in srgb, var(--accent) 74%, transparent) 72%,
+        color-mix(in srgb, var(--accent) 14%, transparent) 88%,
+        color-mix(in srgb, var(--accent) 0%, transparent) 100%
+      ) left center / 1.5px 100% no-repeat,
       linear-gradient(
         90deg,
-        color-mix(in srgb, var(--accent) 92%, transparent) 0%,
-        color-mix(in srgb, var(--accent) 28%, transparent) 78%,
+        color-mix(in srgb, var(--accent) 76%, transparent) 0%,
+        color-mix(in srgb, var(--accent) 22%, transparent) 78%,
         color-mix(in srgb, var(--accent) 0%, transparent) 100%
-      ) left 0.1rem bottom / 0.78rem 1.5px no-repeat;
-    opacity: 0.96;
+      ) left 0.1rem bottom / calc(100% + 0.18rem) 1.5px no-repeat;
   }
 
   .exhibition-title-meta::after {
     content: '';
     position: absolute;
-    left: -2.75rem;
+    left: -3rem;
     top: 50%;
-    width: 2.75rem;
+    width: 3rem;
     height: 1.5px;
     background: linear-gradient(
       90deg,
       color-mix(in srgb, var(--accent) 0%, transparent) 0%,
-      color-mix(in srgb, var(--accent) 20%, transparent) 18%,
-      color-mix(in srgb, var(--accent) 82%, transparent) 56%,
-      color-mix(in srgb, var(--accent) 8%, transparent) 100%
+      color-mix(in srgb, var(--accent) 18%, transparent) 24%,
+      color-mix(in srgb, var(--accent) 50%, transparent) 56%,
+      color-mix(in srgb, var(--accent) 50%, transparent) 100%
     );
     transform: translateY(-50%);
-    opacity: 0.9;
+    opacity: 0.72;
   }
 
   .exhibition-summary .exhibition-dates {

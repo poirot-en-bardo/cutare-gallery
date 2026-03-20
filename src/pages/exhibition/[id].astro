@@ -56,7 +56,7 @@ const spotifyPlaylistUrl =
     <div class="exhibition-summary">
       <div class="exhibition-heading-row">
         <h1>{exhibition.title}</h1>
-        <div class="exhibition-title-meta">
+        <div class={`exhibition-title-meta exhibition-title-meta--${exhibition.status}`}>
           <p class="exhibition-dates">{formatDateRange(exhibition.startDate, exhibition.endDate)}</p>
           <p class="exhibition-location">
             <span class="location-icon" aria-hidden="true">
