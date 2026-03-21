@@ -1086,6 +1086,7 @@ img {
 .exhibition-summary .exhibition-description {
   color: var(--muted-readable);
   line-height: 1.65;
+  white-space: pre-line;
 }
 
 .exhibition-summary .exhibition-location {
