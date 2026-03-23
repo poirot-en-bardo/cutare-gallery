@@ -12,7 +12,6 @@ const staticPages = [
   'past/',
   'politica-confidentialitate/',
   'termeni/',
-  'timeline/',
   'upcoming/',
 ];
 
