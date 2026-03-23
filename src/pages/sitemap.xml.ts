@@ -6,13 +6,10 @@ const staticPages = [
   '',
   'artisti/',
   'contact/',
-  'current/',
   'expozitii/',
   'locatii/',
-  'past/',
   'politica-confidentialitate/',
   'termeni/',
-  'upcoming/',
 ];
 
 function toAbsoluteUrl(path: string, site: URL): string {

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirectare...</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content="0; url=./expozitii/" />
+    <link rel="canonical" href="./expozitii/" />
+    <script>
+      const { pathname, search, hash } = window.location;
+      if (!pathname.endsWith('/')) {
+        window.location.replace(`${pathname}/${search}${hash}`);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const basePath = import.meta.env.BASE_URL || '/';
+---
+
+<BaseLayout
+  title="Pagina nu a fost găsită | Galeria Cutare"
+  description="Pagina căutată nu există sau a fost mutată. Explorează expozițiile, artiștii și informațiile de contact ale Galeriei Cutare."
+>
+  <script is:inline define:vars={{ basePath }}>
+    const pathname = window.location.pathname;
+    const isAppPath = pathname.startsWith(basePath);
+    const isMissingTrailingSlash = !pathname.endsWith('/');
+    const lastSegment = pathname.split('/').pop() ?? '';
+    const looksLikeFile = lastSegment.includes('.');
+    const is404Document = pathname.endsWith('/404.html');
+
+    const redirectIfDirectoryExists = async () => {
+      const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
+      const indexCandidate = `${normalizedPath}index.html`;
+
+      try {
+        const response = await fetch(indexCandidate, {
+          method: 'HEAD',
+          cache: 'no-store',
+        });
+
+        if (response.ok) {
+          window.location.replace(`${normalizedPath}${window.location.search}${window.location.hash}`);
+        }
+      } catch {
+        // If the lookup fails we simply keep rendering the custom 404 page.
+      }
+    };
+
+    if (isAppPath && isMissingTrailingSlash && !looksLikeFile && !is404Document) {
+      redirectIfDirectoryExists();
+    }
+  </script>
+  <section class="not-found">
+    <p class="not-found-code">404</p>
+    <h1 class="accent-title accent-title--decorated">Pagina nu a fost găsită</h1>
+    <p class="not-found-copy">
+      Pagina pe care o cauți nu există sau a fost mutată. Poți continua din una dintre secțiunile de mai jos.
+    </p>
+    <nav class="not-found-links" aria-label="Navigare 404">
+      <a href="./" class="not-found-link">Acasă</a>
+      <a href="expozitii/" class="not-found-link">Expoziții</a>
+      <a href="artisti/" class="not-found-link">Artiști</a>
+      <a href="contact/" class="not-found-link">Contact</a>
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: calc(100svh - 14rem);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .not-found-code {
+    margin: 0 0 0.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--highlight);
+  }
+
+  .not-found-copy {
+    margin: 1rem auto 0;
+    max-width: 34rem;
+    color: var(--muted-readable);
+    line-height: 1.7;
+  }
+
+  .not-found-links {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    justify-content: center;
+  }
+
+  .not-found-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 8.5rem;
+    padding: 0.8rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .not-found-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+</style>
