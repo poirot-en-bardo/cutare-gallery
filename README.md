@@ -2,7 +2,7 @@
 
 Source code for the official website of **Galeria Cutare**, a contemporary art gallery in Câmpulung‑Muscel, Romania. The site showcases local artists, exhibitions, and events.  
 
-Live demo: [https://poirot-en-bardo.github.io/cutare-gallery/](https://poirot-en-bardo.github.io/cutare-gallery/)
+Live demo: [https://galeria.cutare.ro/](https://galeria.cutare.ro/)
 
 ## Features
 
