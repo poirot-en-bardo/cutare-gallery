@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-    site: 'https://poirot-en-bardo.github.io',
-    base: '/cutare-gallery',
+    site: 'https://galeria.cutare.ro',
+    base: '/',
     trailingSlash: 'always',
 });
