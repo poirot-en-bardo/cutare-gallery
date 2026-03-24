@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllArtists, getArtistById } from '../../utils/artists';
 import { getAllExhibitions, getExhibitionContent } from '../../utils/exhibitions';
+import { formatDateRange } from '../../utils/dates';
 import { withBase } from '../../utils/withBase';
 
 export async function getStaticPaths() {
@@ -32,12 +33,9 @@ const artworksByArtist = artist ? getAllExhibitions().flatMap((exhibition) => {
           isUnavailable,
         };
       })(),
-      artworkId: artwork.id,
       artworkTitle: artwork.title,
-      exhibitionId: exhibition.id,
       exhibitionTitle: exhibition.title,
-      floorId: artwork.floorId,
-      roomId: artwork.roomId,
+      exhibitionDateRange: formatDateRange(exhibition.startDate, exhibition.endDate).replaceAll('-', '.'),
       artworkImage: withBase(artwork.imageUrl),
       year: artwork.year,
       description: artwork.description,
@@ -125,10 +123,13 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
       </div>
       <div class="artist-gallery-grid">
         {artworksByArtist.map((artwork) => (
-          <a
-            href={`exhibition/${artwork.exhibitionId}/?floor=${artwork.floorId}&room=${artwork.roomId}&artwork=${artwork.artworkId}`}
+          <button
             class="artist-gallery-item"
+            type="button"
+            aria-label={`Deschide imaginea pentru ${artwork.artworkTitle}`}
             data-artwork-card
+            data-artwork-image={artwork.artworkImage}
+            data-artwork-image-alt={artwork.artworkTitle}
             data-artwork-title={artwork.artworkTitle}
             data-artwork-year={artwork.year ?? ''}
             data-artwork-description={artwork.description ?? ''}
@@ -147,6 +148,9 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
               {artwork.description && (
                 <p class="artist-gallery-description">{artwork.description}</p>
               )}
+              <p class="artist-gallery-exhibition">
+                {artwork.exhibitionTitle} ({artwork.exhibitionDateRange})
+              </p>
               {artwork.displayPrice?.value && (
                 <p
                   class={`artist-gallery-price ${artwork.sold ? 'is-sold' : ''} ${artwork.displayPrice.isOnRequest ? 'is-on-request' : ''} ${artwork.displayPrice.isUnavailable ? 'is-unavailable' : ''}`}
@@ -155,16 +159,46 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
                 </p>
               )}
             </div>
-          </a>
+          </button>
         ))}
       </div>
     </section>
   )}
+
+  <div class="artwork-lightbox" hidden data-artwork-lightbox>
+    <div class="artwork-lightbox-backdrop" data-artwork-lightbox-close></div>
+    <div
+      class="artwork-lightbox-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Imagine lucrare"
+    >
+      <button
+        class="artwork-lightbox-close"
+        type="button"
+        aria-label="Închide imaginea"
+        data-artwork-lightbox-close
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7 7l10 10" />
+          <path d="M17 7L7 17" />
+        </svg>
+      </button>
+      <div class="artwork-lightbox-media">
+        <img class="artwork-lightbox-image" src="" alt="" data-artwork-lightbox-image />
+      </div>
+    </div>
+  </div>
 </BaseLayout>
 
 <script is:inline>
   const artworkSearchInput = document.querySelector('[data-artwork-search-input]');
   const artworkCards = Array.from(document.querySelectorAll('[data-artwork-card]'));
+  const artworkLightbox = document.querySelector('[data-artwork-lightbox]');
+  const artworkLightboxImage = document.querySelector('[data-artwork-lightbox-image]');
+  const artworkLightboxCloseTriggers = Array.from(
+    document.querySelectorAll('[data-artwork-lightbox-close]')
+  );
 
   const normalizeText = (value) => {
     if (!value) return '';
@@ -176,6 +210,24 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
   };
 
   const availabilityCheckbox = document.querySelector('[data-availability-checkbox]');
+
+  const openArtworkLightbox = (card) => {
+    if (!artworkLightbox || !artworkLightboxImage || !card) return;
+
+    artworkLightboxImage.src = card.getAttribute('data-artwork-image') || '';
+    artworkLightboxImage.alt = card.getAttribute('data-artwork-image-alt') || '';
+    artworkLightbox.hidden = false;
+    document.body.classList.add('artwork-lightbox-open');
+  };
+
+  const closeArtworkLightbox = () => {
+    if (!artworkLightbox || !artworkLightboxImage) return;
+
+    artworkLightbox.hidden = true;
+    artworkLightboxImage.src = '';
+    artworkLightboxImage.alt = '';
+    document.body.classList.remove('artwork-lightbox-open');
+  };
 
   const updateArtworkCards = () => {
     const query = normalizeText(artworkSearchInput?.value || '');
@@ -203,9 +255,29 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
   if (availabilityCheckbox) {
     availabilityCheckbox.addEventListener('change', updateArtworkCards);
   }
+
+  artworkCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      openArtworkLightbox(card);
+    });
+  });
+
+  artworkLightboxCloseTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', closeArtworkLightbox);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && artworkLightbox && !artworkLightbox.hidden) {
+      closeArtworkLightbox();
+    }
+  });
 </script>
 
 <style>
+:global(body.artwork-lightbox-open) {
+  overflow: hidden;
+}
+
 .artist-gallery {
   margin-top: calc(1.75rem + 0.35rem);
   padding-top: 1.75rem;
@@ -245,6 +317,8 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
 .artist-gallery-item {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding: 0;
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -252,6 +326,9 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
   transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .artist-gallery-item:hover {
@@ -324,6 +401,13 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
   overflow: hidden;
 }
 
+.artist-gallery-exhibition {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--muted);
+  margin: 0.15rem 0 0;
+}
+
 .artist-gallery-price {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.1rem;
@@ -355,6 +439,146 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--muted);
+}
+
+.artwork-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.artwork-lightbox[hidden] {
+  display: none;
+}
+
+.artwork-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  backdrop-filter: blur(2px);
+}
+
+.artwork-lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: min(94vw, 1280px);
+  max-height: 90vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.artwork-lightbox-media {
+  position: relative;
+  display: inline-block;
+  max-width: min(94vw, 1280px);
+  max-height: 88vh;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow:
+    0 30px 80px rgba(46, 52, 60, 0.18),
+    0 0 0 1px rgba(136, 143, 154, 0.16);
+}
+
+.artwork-lightbox-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, rgba(24, 30, 38, 0.46), transparent 12%, transparent 78%, rgba(24, 30, 38, 0.52)),
+    linear-gradient(90deg, rgba(24, 30, 38, 0.36), transparent 9%, transparent 91%, rgba(24, 30, 38, 0.36));
+  box-shadow:
+    inset 0 0 84px rgba(24, 30, 38, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.artwork-lightbox-image {
+  display: block;
+  width: auto;
+  max-width: min(94vw, 1280px);
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.artwork-lightbox-close {
+  position: absolute;
+  top: -2.2rem;
+  right: -0.05rem;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(34, 38, 44, 0.62);
+  padding: 0;
+  cursor: pointer;
+  box-shadow: none;
+  opacity: 0.82;
+  animation: artwork-lightbox-close-settle 260ms ease-out;
+  transition: transform 0.18s ease, opacity 0.18s ease, color 0.18s ease;
+}
+
+.artwork-lightbox-close svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke: currentColor;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  fill: none;
+  filter: none;
+}
+
+.artwork-lightbox-close:hover {
+  transform: translateY(-1px) scale(1.08);
+  color: rgba(17, 20, 24, 0.96);
+  opacity: 1;
+}
+
+@keyframes artwork-lightbox-close-settle {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) rotate(-10deg) scale(0.92);
+  }
+  to {
+    opacity: 0.72;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .artwork-lightbox {
+    padding: 0.8rem;
+  }
+
+  .artwork-lightbox-panel {
+    max-width: 100%;
+  }
+
+  .artwork-lightbox-media {
+    max-width: 100%;
+  }
+
+  .artwork-lightbox-image {
+    max-width: 100%;
+    max-height: 84vh;
+  }
+
+  .artwork-lightbox-close {
+    top: -2rem;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
 }
 
 /* --- works header with filter --- */
