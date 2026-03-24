@@ -94,7 +94,7 @@ const structuredData = [
     ))}
   </head>
   <body>
-    <button class="back-button" type="button" aria-label="Înapoi">
+    <button class="back-button" type="button" aria-label="Înapoi" data-visible="false">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M15 5l-7 7 7 7" />
       </svg>
@@ -143,6 +143,35 @@ const structuredData = [
     </button>
     <script is:inline>
       const backButton = document.querySelector('.back-button');
+      const mobileViewport = window.matchMedia('(max-width: 699px)');
+      const mobileBackButtonVisitKey = 'cutare-mobile-back-button-visited';
+
+      const syncBackButtonVisibility = () => {
+        if (!backButton) return;
+
+        if (!mobileViewport.matches) {
+          backButton.dataset.visible = 'false';
+          return;
+        }
+
+        let hasVisitedOnMobile = false;
+
+        try {
+          hasVisitedOnMobile = window.localStorage.getItem(mobileBackButtonVisitKey) === 'true';
+
+          if (!hasVisitedOnMobile) {
+            window.localStorage.setItem(mobileBackButtonVisitKey, 'true');
+          }
+        } catch {
+          hasVisitedOnMobile = true;
+        }
+
+        backButton.dataset.visible = hasVisitedOnMobile ? 'true' : 'false';
+      };
+
+      syncBackButtonVisibility();
+      mobileViewport.addEventListener?.('change', syncBackButtonVisibility);
+
       backButton?.addEventListener('click', () => {
         if (window.history.length > 1) {
           window.history.back();

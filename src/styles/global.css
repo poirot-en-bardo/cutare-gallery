@@ -206,7 +206,7 @@ img {
     margin: 0 auto;
   }
 
-  .back-button {
+  .back-button[data-visible='true'] {
     display: grid;
     top: 4rem;
     left: 2em;
