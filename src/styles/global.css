@@ -157,6 +157,36 @@ img {
   color: var(--muted);
 }
 
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.35rem;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: #c13584;
+  text-decoration: none;
+  transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-social-link:hover {
+  transform: translateY(-1px) scale(1.06);
+  filter: saturate(1.08);
+}
+
+.footer-social-link svg {
+  width: 22px;
+  height: 22px;
+  stroke: url(#footer-instagram-gradient);
+  stroke-width: 1.8;
+  fill: none;
+}
+
 .footer-icon svg {
   width: 16px;
   height: 16px;

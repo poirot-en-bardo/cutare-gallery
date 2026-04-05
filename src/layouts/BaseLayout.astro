@@ -122,7 +122,29 @@ const structuredData = [
       <slot />
     </main>
     <footer class="site-footer">
-      <p>Pentru mai multe detalii: {siteContact.phone}</p>
+      <div class="footer-socials">
+        <a
+          class="footer-social-link"
+          href="https://www.instagram.com/galeria.cutare/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram Galeria Cutare"
+        >
+          <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+            <defs>
+              <linearGradient id="footer-instagram-gradient" x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#feda75" />
+                <stop offset="35%" stop-color="#fa7e1e" />
+                <stop offset="65%" stop-color="#d62976" />
+                <stop offset="100%" stop-color="#4f5bd5" />
+              </linearGradient>
+            </defs>
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+            <circle cx="12" cy="12" r="4.25" />
+            <circle cx="17.4" cy="6.6" r="1.15" fill="#d62976" stroke="none" />
+          </svg>
+        </a>
+      </div>
       <p class="footer-location">
         <span class="footer-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" role="img" focusable="false">
