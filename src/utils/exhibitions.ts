@@ -83,6 +83,28 @@ function getArtworkRecordsFromModule(module: unknown): ArtworkRecord[] {
   return Array.isArray(value) ? value : [];
 }
 
+function flattenRooms(floors: Floor[]): {
+  rooms: Array<{ id: string; name: string }>;
+  roomIdMap: Map<string, string>;
+} {
+  const rooms: Array<{ id: string; name: string }> = [];
+  const roomIdMap = new Map<string, string>();
+
+  floors.forEach((floor) => {
+    floor.rooms.forEach((room) => {
+      const roomNumber = rooms.length + 1;
+      const normalizedRoomId = `room-${roomNumber}`;
+      rooms.push({
+        id: normalizedRoomId,
+        name: `Sala ${roomNumber}`,
+      });
+      roomIdMap.set(`${floor.id}::${room.id}`, normalizedRoomId);
+    });
+  });
+
+  return { rooms, roomIdMap };
+}
+
 function validateDataIntegrityOnce(): void {
   if (integrityChecked) return;
   integrityChecked = true;
@@ -194,7 +216,7 @@ export function getExhibitionById(id: string): Exhibition | undefined {
 }
 
 export function getExhibitionContent(id: string): {
-  floors: Floor[];
+  rooms: Array<{ id: string; name: string }>;
   artworks: Artwork[];
 } {
   const folderId = getAllExhibitions().find((exhibition) => exhibition.id === id)?.folderId ?? id;
@@ -208,6 +230,7 @@ export function getExhibitionContent(id: string): {
   const floors = floorsEntry
     ? ((floorsEntry[1] as { default?: Floor[] }).default ?? (floorsEntry[1] as Floor[]))
     : [];
+  const { rooms, roomIdMap } = flattenRooms(floors);
   const artworkRecords = artworksEntry
     ? getArtworkRecordsFromModule(artworksEntry[1])
     : [];
@@ -220,11 +243,14 @@ export function getExhibitionContent(id: string): {
       return [];
     }
     const { artistId: _artistId, ...rest } = artwork;
+    const normalizedRoomId =
+      roomIdMap.get(`${artwork.floorId}::${artwork.roomId}`) ?? artwork.roomId;
     return [{
       ...rest,
+      roomId: normalizedRoomId,
       artist,
     }];
   });
 
-  return { floors, artworks };
+  return { rooms, artworks };
 }

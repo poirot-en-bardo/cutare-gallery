@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import FloorSection from '../../components/FloorSection.astro';
+import ArtworkCarousel from '../../components/ArtworkCarousel.astro';
 import {
   getAllExhibitions,
   getExhibitionById,
@@ -20,8 +20,15 @@ const exhibition = getExhibitionById(id);
 if (!exhibition && import.meta.env.DEV) {
   throw new Error(`Exhibition not found: ${id}`);
 }
-const { floors, artworks } = exhibition ? getExhibitionContent(exhibition.id) : { floors: [], artworks: [] };
-const isUpcoming = exhibition ? exhibition.status === 'upcoming' || artworks.length === 0 : true;
+const { rooms, artworks } = exhibition ? getExhibitionContent(exhibition.id) : { rooms: [], artworks: [] };
+const roomsWithArtworks = rooms
+  .map((room, index) => ({
+    ...room,
+    number: index + 1,
+    artworks: artworks.filter((artwork) => artwork.roomId === room.id),
+  }))
+  .filter((room) => room.artworks.length > 0);
+const isUpcoming = exhibition ? exhibition.status === 'upcoming' || roomsWithArtworks.length === 0 : true;
 const sheetId = import.meta.env.PUBLIC_GOOGLE_SHEET_ID ?? '';
 const enableSheetMerge = Boolean(sheetId && !isUpcoming);
 const descriptionBlocks = exhibition
@@ -96,144 +103,101 @@ const spotifyPlaylistUrl =
     </div>
   </section>
 
-  {!isUpcoming && floors.length > 0 && (
-    <nav class="floor-nav" aria-label="Selectare etaj" data-floor-nav>
-      {floors.map((floor, index) => (
-        <button
-          type="button"
-          class="floor-button"
-          data-floor-button={floor.id}
-          aria-pressed={index === 0 ? 'true' : 'false'}
-        >
-          {floor.name}
-        </button>
-      ))}
-    </nav>
-  )}
-
   {isUpcoming ? (
     <div class="placeholder-panel">
       <h2>În curând</h2>
-      <p>Planurile de etaj si lucrarile vor fi publicate aproape de deschidere.</p>
+      <p>Sălile și lucrările vor fi publicate aproape de deschidere.</p>
     </div>
   ) : (
-    floors.map((floor, index) => (
-      <FloorSection
-        floorId={floor.id}
-        floorName={floor.name}
-        rooms={floor.rooms}
-        artworks={artworks}
-        data-visible={index === 0 ? 'true' : 'false'}
-      />
-    ))
+    <section class="timeline room-timeline" aria-label="Sălile expoziției" data-room-timeline>
+      <div class="timeline-rail" aria-hidden="true"></div>
+      <div class="timeline-list">
+        {roomsWithArtworks.map((room) => (
+          <div class="timeline-row room-timeline-row" data-room-timeline-row data-room-id={room.id}>
+            <div class="timeline-marker room-timeline-marker">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <span class="timeline-date room-timeline-date">
+                <span class="timeline-date-line">Sala</span>
+                <span class="timeline-date-line room-timeline-number">{room.number}</span>
+              </span>
+            </div>
+            <article class="timeline-card room-timeline-card">
+              <div class="room-timeline-card-body">
+                <ArtworkCarousel artworks={room.artworks} />
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    </section>
   )}
 
-  {!isUpcoming && floors.length > 0 && (
-    <nav
-      class="floor-nav floor-nav-bottom"
-      aria-label="Selectare etaj (jos)"
-      data-floor-nav
-      data-floor-nav-bottom
-    >
-      {floors.map((floor, index) => (
-        <button
-          type="button"
-          class="floor-button"
-          data-floor-button={floor.id}
-          aria-pressed={index === 0 ? 'true' : 'false'}
-        >
-          {floor.name}
-        </button>
-      ))}
-    </nav>
-  )}
-
-  {!isUpcoming && floors.length > 0 && (
+  {!isUpcoming && roomsWithArtworks.length > 0 && (
     <script>
-      const navs = Array.from(document.querySelectorAll('[data-floor-nav]'));
-      const buttons = navs.flatMap((nav) => Array.from(nav.querySelectorAll('[data-floor-button]')));
-      const sections = Array.from(document.querySelectorAll('[data-floor-id]'));
+      const rows = Array.from(document.querySelectorAll('[data-room-timeline-row]'));
+      const timeline = document.querySelector('[data-room-timeline]');
       const params = new URLSearchParams(window.location.search);
       const requestedArtworkId = params.get('artwork');
-      const requestedFloorId = params.get('floor');
       const requestedRoomId = params.get('room');
-      const isKnownFloor = (floorId) =>
-        buttons.some((button) => button.getAttribute('data-floor-button') === floorId);
-      const persistFloorInUrl = (floorId) => {
-        const url = new URL(window.location.href);
-        url.searchParams.set('floor', floorId);
-        window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
-      };
+      let ticking = false;
 
-      const setActiveFloor = (floorId) => {
-        sections.forEach((section) => {
-          const isActive = section.getAttribute('data-floor-id') === floorId;
-          section.setAttribute('data-visible', isActive ? 'true' : 'false');
-        });
-        buttons.forEach((button) => {
-          const isActive = button.getAttribute('data-floor-button') === floorId;
-          button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        });
-      };
+      const updateActiveRow = () => {
+        ticking = false;
+        if (!rows.length) return;
 
-      if (buttons.length > 0) {
-        let initialFloorId = buttons[0].getAttribute('data-floor-button');
+        const viewportCenter = window.innerHeight / 2;
+        let best = rows[0];
+        let bestDistance = Number.POSITIVE_INFINITY;
 
-        if (requestedFloorId && isKnownFloor(requestedFloorId)) {
-          initialFloorId = requestedFloorId;
-        } else if (requestedArtworkId) {
-          const targetCard = document.querySelector(`[data-artwork-id="${requestedArtworkId}"]`);
-          const targetFloor = targetCard?.closest('[data-floor-id]')?.getAttribute('data-floor-id');
-          if (targetFloor && isKnownFloor(targetFloor)) {
-            initialFloorId = targetFloor;
+        for (const row of rows) {
+          const rect = row.getBoundingClientRect();
+          const rowCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(rowCenter - viewportCenter);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            best = row;
           }
         }
 
-        if (initialFloorId) {
-          setActiveFloor(initialFloorId);
-        }
-
-        buttons.forEach((button) => {
-          button.addEventListener('click', () => {
-            const floorId = button.getAttribute('data-floor-button');
-            if (floorId) {
-              setActiveFloor(floorId);
-              persistFloorInUrl(floorId);
-            }
-
-            const clickedBottomNav = button.closest('[data-floor-nav-bottom]');
-            if (!floorId || !clickedBottomNav) return;
-
-            requestAnimationFrame(() => {
-              const topFloorNav = document.querySelector(
-                '[data-floor-nav]:not([data-floor-nav-bottom])'
-              );
-              if (!topFloorNav) return;
-              const siteHeader = document.querySelector('.site-header');
-              const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 0;
-              const top =
-                window.scrollY + topFloorNav.getBoundingClientRect().top - headerHeight - 8;
-              window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-            });
-          });
+        rows.forEach((row) => {
+          row.classList.toggle('is-active', row === best);
         });
 
-        if (requestedRoomId || requestedArtworkId) {
-          requestAnimationFrame(() => {
-            if (requestedRoomId) {
-              const room = document.querySelector(`[data-room-id="${requestedRoomId}"]`);
-              room?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+        if (timeline && best?.dataset?.roomId) {
+          timeline.setAttribute('data-active-room', best.dataset.roomId);
+        }
+      };
 
-            if (requestedArtworkId) {
-              const card = document.querySelector(`[data-artwork-id="${requestedArtworkId}"]`);
-              if (!card) return;
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(updateActiveRow);
+      };
+
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate);
+      window.addEventListener('load', requestUpdate);
+      requestUpdate();
+
+      if (requestedRoomId || requestedArtworkId) {
+        requestAnimationFrame(() => {
+          if (requestedRoomId) {
+            const room = document.querySelector(`[data-room-id="${requestedRoomId}"]`);
+            room?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+
+          if (requestedArtworkId) {
+            const card = document.querySelector(`[data-artwork-id="${requestedArtworkId}"]`);
+            if (!card) return;
+            const row = card.closest('[data-room-id]');
+            row?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            requestAnimationFrame(() => {
               card.scrollIntoView({ behavior: 'smooth', block: 'center' });
               card.classList.add('is-highlighted');
               setTimeout(() => card.classList.remove('is-highlighted'), 2200);
-            }
-          });
-        }
+            });
+          }
+        });
       }
     </script>
   )}
