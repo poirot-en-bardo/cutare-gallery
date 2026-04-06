@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import * as XLSX from 'xlsx';
+import XLSX from 'xlsx';
 
 const args = process.argv.slice(2);
 const exhibitionId = args[0];
@@ -53,6 +53,14 @@ function normalizeSaleAvailability(value) {
   if (['da', 'yes', 'true', '1', 'y'].includes(text)) return true;
   if (['nu', 'no', 'false', '0', 'n'].includes(text)) return false;
   return undefined;
+}
+
+function normalizeRoomId(value) {
+  const text = normalizeCell(value).toLowerCase();
+  if (!text) return undefined;
+  const match = text.match(/(\d+)/);
+  if (match?.[1]) return String(Number.parseInt(match[1], 10));
+  return text;
 }
 
 function slugify(value) {
@@ -139,7 +147,6 @@ function parseArtistRows(rows, sourceName) {
   const titleIndex = headerRow.indexOf('titlu lucrare');
   const yearIndex = headerRow.indexOf('an');
   const descriptionIndex = headerRow.indexOf('descriere');
-  const floorIndex = headerRow.indexOf('etaj');
   const roomIndex = headerRow.indexOf('sala');
   const saleIndex = headerRow.indexOf('disponibila pentru vanzare (da/nu)');
 
@@ -153,8 +160,7 @@ function parseArtistRows(rows, sourceName) {
     const title = normalizeCell(row[titleIndex]);
     const year = normalizeCell(row[yearIndex]);
     const description = normalizeCell(row[descriptionIndex]);
-    const floorId = floorIndex >= 0 ? normalizeCell(row[floorIndex]) : '';
-    const roomId = roomIndex >= 0 ? normalizeCell(row[roomIndex]) : '';
+    const roomId = roomIndex >= 0 ? normalizeRoomId(row[roomIndex]) : undefined;
     const forSale = saleIndex >= 0 ? normalizeSaleAvailability(row[saleIndex]) : undefined;
 
     if (!title && !year && !description) continue;
@@ -167,8 +173,7 @@ function parseArtistRows(rows, sourceName) {
       title,
       year: year || undefined,
       description: description || undefined,
-      floorId: floorId || undefined,
-      roomId: roomId || undefined,
+      roomId,
       forSale,
     });
   }
@@ -176,16 +181,16 @@ function parseArtistRows(rows, sourceName) {
   return { meta, artworks };
 }
 
-function pickDefaultPlacement(floors) {
-  if (!Array.isArray(floors) || floors.length === 0) {
-    return { floorId: 'tbd', roomId: 'tbd' };
+function pickDefaultRoomId(existingArtworks) {
+  const roomIds = existingArtworks
+    .map((artwork) => normalizeRoomId(artwork.roomId))
+    .filter(Boolean)
+    .map((value) => Number.parseInt(value, 10))
+    .filter((value) => Number.isFinite(value));
+  if (roomIds.length === 0) {
+    return '1';
   }
-  const firstFloor = floors[0];
-  const firstRoom = Array.isArray(firstFloor.rooms) ? firstFloor.rooms[0] : null;
-  return {
-    floorId: firstFloor?.id ?? 'tbd',
-    roomId: firstRoom?.id ?? 'tbd',
-  };
+  return String(Math.min(...roomIds));
 }
 
 function ensureUniqueId(base, existingIds) {
@@ -202,19 +207,14 @@ function ensureUniqueId(base, existingIds) {
 const exhibitionFolder = await findExhibitionFolder(exhibitionId);
 const exhibitionFolderId = path.basename(exhibitionFolder);
 const artworksPath = path.join(exhibitionFolder, 'artworks.json');
-const floorsPath = path.join(exhibitionFolder, 'floors.json');
-
-const [artistsRaw, artworksRaw, floorsRaw] = await Promise.all([
+const [artistsRaw, artworksRaw] = await Promise.all([
   fs.readFile(artistsPath, 'utf8'),
   fs.readFile(artworksPath, 'utf8').catch(() => '[]'),
-  fs.readFile(floorsPath, 'utf8').catch(() => '[]'),
 ]);
 
 const artists = JSON.parse(artistsRaw);
 const artworks = JSON.parse(artworksRaw);
-const floors = JSON.parse(floorsRaw);
-
-const { floorId: defaultFloorId, roomId: defaultRoomId } = pickDefaultPlacement(floors);
+const defaultRoomId = pickDefaultRoomId(artworks);
 
 const existingArtistMap = new Map(artists.map((artist) => [artist.id, artist]));
 const existingArtworkIds = new Set(artworks.map((artwork) => artwork.id));
@@ -296,7 +296,6 @@ for (const filePath of files) {
     const baseId = `${exhibitionFolderId}-${artistId}-${titleSlug}`;
     const id = ensureUniqueId(baseId, existingArtworkIds);
 
-    const floorId = artwork.floorId || defaultFloorId;
     const roomId = artwork.roomId || defaultRoomId;
     const forSale = artwork.forSale ?? true;
     const price = forSale ? 'Preț la cerere' : 'Indisponibil';
@@ -306,7 +305,6 @@ for (const filePath of files) {
       title: artwork.title,
       artistId,
       imageUrl: '',
-      floorId,
       roomId,
       year: artwork.year,
       description: artwork.description,

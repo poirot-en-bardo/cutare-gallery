@@ -7,23 +7,11 @@ export interface Artist {
   instagram?: string;
 }
 
-export interface Floor {
-  id: string;
-  name: string;
-  rooms: Room[];
-}
-
-export interface Room {
-  id: string;
-  name: string;
-}
-
 export interface ArtworkRecord {
   id: string;
   title: string;
   artistId: string;
   imageUrl: string;
-  floorId: string;
   roomId: string;
   year?: string;
   description?: string;

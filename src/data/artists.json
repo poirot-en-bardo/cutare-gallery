@@ -118,5 +118,21 @@
     "bio": "Meșter în arta țesutului tradițional.",
     "contact": "rodica@cutare.art",
     "instagram": ""
+  },
+  {
+    "id": "ionut-fuscel",
+    "name": "Ionuț Fuscel",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1775507495/ionut_yfgf2z.jpg",
+    "bio": "Artist câmpulungean, pictor, restaurator de frescă și restaurator în lemn.",
+    "contact": "ionutfuscel@cutare.ro",
+    "instagram": ""
+  },
+  {
+    "id": "maia-stefana-oprea",
+    "name": "Maia Ștefana Oprea",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1775507320/maia_t1bqfk.jpg",
+    "bio": "Artist vizual care folosește tehnici mixte pentru a reda memoria afectivă, fragilitatea, degradarea și regenerarea.",
+    "contact": "maiaoprea@cutare.ro",
+    "instagram": "https://www.instagram.com/maia_oprea_studio/"
   }
 ]

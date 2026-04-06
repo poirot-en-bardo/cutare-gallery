@@ -1,5 +1,5 @@
 import { getArtistById } from './artists';
-import type { Artwork, ArtworkRecord, Floor } from '../types/gallery';
+import type { Artwork, ArtworkRecord } from '../types/gallery';
 
 export type ExhibitionStatus = 'current' | 'past' | 'upcoming';
 
@@ -20,9 +20,6 @@ export interface Exhibition extends ExhibitionMetadata {
 }
 
 const metadataModules = import.meta.glob('../data/exhibitions/*/*/metadata.json', {
-  eager: true,
-});
-const floorsModules = import.meta.glob('../data/exhibitions/*/*/floors.json', {
   eager: true,
 });
 const artworksModules = import.meta.glob('../data/exhibitions/*/*/artworks.json', {
@@ -83,26 +80,28 @@ function getArtworkRecordsFromModule(module: unknown): ArtworkRecord[] {
   return Array.isArray(value) ? value : [];
 }
 
-function flattenRooms(floors: Floor[]): {
-  rooms: Array<{ id: string; name: string }>;
-  roomIdMap: Map<string, string>;
-} {
-  const rooms: Array<{ id: string; name: string }> = [];
-  const roomIdMap = new Map<string, string>();
-
-  floors.forEach((floor) => {
-    floor.rooms.forEach((room) => {
-      const roomNumber = rooms.length + 1;
-      const normalizedRoomId = `room-${roomNumber}`;
-      rooms.push({
-        id: normalizedRoomId,
-        name: `Sala ${roomNumber}`,
-      });
-      roomIdMap.set(`${floor.id}::${room.id}`, normalizedRoomId);
-    });
+function getRoomsFromArtworkRecords(artworkRecords: ArtworkRecord[]): Array<{ id: string; name: string }> {
+  const roomIds = Array.from(
+    new Set(
+      artworkRecords
+        .map((artwork) => String(artwork.roomId ?? '').trim())
+        .filter(Boolean)
+    )
+  ).sort((a, b) => {
+    const aNumber = Number.parseInt(a, 10);
+    const bNumber = Number.parseInt(b, 10);
+    const aIsNumber = Number.isFinite(aNumber);
+    const bIsNumber = Number.isFinite(bNumber);
+    if (aIsNumber && bIsNumber) return aNumber - bNumber;
+    if (aIsNumber) return -1;
+    if (bIsNumber) return 1;
+    return a.localeCompare(b, 'ro', { numeric: true, sensitivity: 'base' });
   });
 
-  return { rooms, roomIdMap };
+  return roomIds.map((roomId) => ({
+    id: roomId,
+    name: `Sala ${roomId}`,
+  }));
 }
 
 function validateDataIntegrityOnce(): void {
@@ -220,20 +219,13 @@ export function getExhibitionContent(id: string): {
   artworks: Artwork[];
 } {
   const folderId = getAllExhibitions().find((exhibition) => exhibition.id === id)?.folderId ?? id;
-  const floorsEntry = Object.entries(floorsModules).find(([file]) =>
-    file.includes(`/${folderId}/floors.json`)
-  );
   const artworksEntry = Object.entries(artworksModules).find(([file]) =>
     file.includes(`/${folderId}/artworks.json`)
   );
-
-  const floors = floorsEntry
-    ? ((floorsEntry[1] as { default?: Floor[] }).default ?? (floorsEntry[1] as Floor[]))
-    : [];
-  const { rooms, roomIdMap } = flattenRooms(floors);
   const artworkRecords = artworksEntry
     ? getArtworkRecordsFromModule(artworksEntry[1])
     : [];
+  const rooms = getRoomsFromArtworkRecords(artworkRecords);
   const artworks = artworkRecords.flatMap((artwork) => {
     const artist = getArtistById(artwork.artistId);
     if (!artist) {
@@ -243,11 +235,8 @@ export function getExhibitionContent(id: string): {
       return [];
     }
     const { artistId: _artistId, ...rest } = artwork;
-    const normalizedRoomId =
-      roomIdMap.get(`${artwork.floorId}::${artwork.roomId}`) ?? artwork.roomId;
     return [{
       ...rest,
-      roomId: normalizedRoomId,
       artist,
     }];
   });
