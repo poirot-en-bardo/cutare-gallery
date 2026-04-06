@@ -1291,14 +1291,12 @@ img {
 .carousel-arrows {
   position: absolute;
   inset: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   pointer-events: none;
-  padding: 0 0.25rem;
 }
 
 .carousel-arrow {
+  position: absolute;
+  top: 50%;
   font-size: 2.7rem;
   color: var(--accent);
   opacity: 0.7;
@@ -1309,6 +1307,15 @@ img {
   cursor: pointer;
   padding: 0;
   pointer-events: auto;
+  transform: translateY(-50%);
+}
+
+.carousel-arrow.left {
+  left: 0.25rem;
+}
+
+.carousel-arrow.right {
+  right: 0.25rem;
 }
 
 .carousel-dots {
@@ -1461,8 +1468,8 @@ img {
 
 @media (max-width: 720px) {
   .room-timeline {
-    --timeline-marker-width: 26px;
-    --timeline-gap: 1.1rem;
+    --timeline-marker-width: 34px;
+    --timeline-gap: 1.8rem;
     --timeline-dot-size: 10px;
   }
 
@@ -1471,19 +1478,29 @@ img {
     gap: var(--timeline-gap);
   }
 
+  .room-timeline .timeline-rail {
+    left: calc(var(--timeline-rail-left) - 13px);
+  }
+
   .room-timeline .timeline-marker {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
+  }
+
+  .room-timeline .timeline-dot {
+    left: calc(100% + (var(--timeline-gap) / 2) - 13px);
   }
 
   .room-timeline-date {
-    left: calc(100% + (var(--timeline-gap) / 2) - 0.1rem);
-    font-size: 0.66rem;
+    left: calc(100% + (var(--timeline-gap) / 2) - 1.45rem);
+    min-width: 2.8rem;
+    font-size: 0.92rem;
     line-height: 1.02;
+    text-align: center;
   }
 
   .room-timeline-number {
-    font-size: 0.98rem;
+    font-size: 1.48rem;
     line-height: 0.9;
   }
 
@@ -1493,6 +1510,22 @@ img {
     transform-origin: center center;
     border-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0 12px 30px rgba(12, 12, 12, 0.08);
+  }
+
+  .room-timeline .artwork-image img {
+    height: 280px;
+  }
+
+  .room-timeline .artwork-meta {
+    padding: 0.85rem 1rem 1rem;
+  }
+
+  .room-timeline .artwork-title {
+    font-size: 1.08rem;
+  }
+
+  .room-timeline .artwork-description {
+    font-size: 0.9rem;
   }
 
   .room-timeline-row.is-active .room-timeline-card {

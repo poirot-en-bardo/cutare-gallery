@@ -66,9 +66,30 @@ const hasMultiple = artworks.length > 1;
       });
     };
 
-    updateDots();
-    track.addEventListener('scroll', updateDots, { passive: true });
-    window.addEventListener('resize', updateDots);
+    const updateArrowVisibility = () => {
+      const maxScrollLeft = track.scrollWidth - track.clientWidth;
+      const isAtStart = track.scrollLeft <= 4;
+      const isAtEnd = maxScrollLeft - track.scrollLeft <= 4;
+
+      if (prevButton) {
+        prevButton.hidden = isAtStart;
+        prevButton.setAttribute('aria-hidden', isAtStart ? 'true' : 'false');
+      }
+
+      if (nextButton) {
+        nextButton.hidden = isAtEnd;
+        nextButton.setAttribute('aria-hidden', isAtEnd ? 'true' : 'false');
+      }
+    };
+
+    const syncCarouselUi = () => {
+      updateDots();
+      updateArrowVisibility();
+    };
+
+    syncCarouselUi();
+    track.addEventListener('scroll', syncCarouselUi, { passive: true });
+    window.addEventListener('resize', syncCarouselUi);
 
     const scrollByPage = (direction) => {
       track.scrollBy({ left: direction * track.clientWidth, behavior: 'smooth' });
