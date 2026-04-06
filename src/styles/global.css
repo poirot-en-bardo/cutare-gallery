@@ -1796,7 +1796,7 @@ img {
   .exhibition-header {
     grid-template-columns: max-content 1fr;
     align-items: center;
-    column-gap: 1.25rem;
+    column-gap: 2rem;
   }
 
   .exhibition-hero .poster-frame {
@@ -1807,8 +1807,9 @@ img {
   .exhibition-summary {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 420px;
+    padding-top: 2.5rem;
   }
 
   .exhibition-summary--with-spotify {
