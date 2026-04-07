@@ -261,7 +261,7 @@ img {
 
   .back-button[data-visible='true'] {
     display: grid;
-    top: 4rem;
+    top: 3.5rem;
     left: 2em;
   }
 }
