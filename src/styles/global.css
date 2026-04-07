@@ -116,6 +116,12 @@ img {
 }
 
 @media (max-width: 699px) {
+  .site-header {
+    gap: 0.35rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.45rem;
+  }
+
   .site-brand {
     margin-left: 0;
     align-items: center;
