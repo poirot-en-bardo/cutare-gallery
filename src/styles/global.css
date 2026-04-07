@@ -63,10 +63,15 @@ img {
 }
 
 .site-logo {
-  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-logo-image {
+  width: min(320px, 62vw);
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
 }
 
 .site-nav {
@@ -104,9 +109,21 @@ img {
   flex: 1;
 }
 
+@media (min-width: 700px) {
+  .site-brand {
+    margin-left: max(0.25rem, calc((100vw - 1200px) / 4 + 0.25rem));
+  }
+}
+
 @media (max-width: 699px) {
   .site-brand {
-    margin-left: 0.75em;
+    margin-left: 0;
+    align-items: center;
+  }
+
+  .site-logo-image {
+    width: min(250px, 58vw);
+    max-height: 48px;
   }
 
   .site-nav {
