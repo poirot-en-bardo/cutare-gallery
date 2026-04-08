@@ -28,9 +28,6 @@ const phoneTel = getPhoneTel();
           <a href={`mailto:${siteContact.email}`} class="contact-link">
             {siteContact.email}
           </a>
-          <p class="contact-description">
-            Trimite-ne un email și îți vom răspunde în cel mai scurt timp posibil.
-          </p>
         </div>
 
         <div class="contact-card">
@@ -43,9 +40,6 @@ const phoneTel = getPhoneTel();
           <a href={`tel:${phoneTel}`} class="contact-link">
             {siteContact.phone}
           </a>
-          <p class="contact-description">
-            Suntem disponibili pentru apeluri în program de lucru.
-          </p>
         </div>
 
         <div class="contact-card">
@@ -67,20 +61,6 @@ const phoneTel = getPhoneTel();
           </a>
         </div>
 
-      </div>
-
-      <div class="contact-info-section">
-        <h2>Program</h2>
-        <div class="schedule">
-          <div class="schedule-item">
-            <span class="schedule-day">Luni - Vineri</span>
-            <span class="schedule-hours">10:00 - 18:00</span>
-          </div>
-          <div class="schedule-item">
-            <span class="schedule-day">Sâmbătă - Duminică</span>
-            <span class="schedule-hours">Închis</span>
-          </div>
-        </div>
       </div>
 
       <div class="contact-note">
@@ -171,10 +151,10 @@ const phoneTel = getPhoneTel();
 }
 
 .contact-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 1.5rem;
-  color: var(--highlight);
+  width: 31px;
+  height: 31px;
+  margin: 0 auto 0.85rem;
+  color: var(--accent);
 }
 
 .contact-icon svg {
@@ -217,47 +197,6 @@ const phoneTel = getPhoneTel();
   font-size: 0.95rem;
   line-height: 1.5;
   margin: 0;
-}
-
-.contact-info-section {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-}
-
-.contact-info-section h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  color: var(--accent);
-  margin: 0 0 1.5rem;
-  text-align: center;
-}
-
-.schedule {
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.schedule-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.schedule-item:last-child {
-  border-bottom: none;
-}
-
-.schedule-day {
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.schedule-hours {
-  color: var(--muted-readable);
 }
 
 .contact-note {
