@@ -82,24 +82,17 @@ async function pathExists(filePath) {
 }
 
 async function findExhibitionFolder(id) {
-  const statuses = ['current', 'past', 'upcoming'];
-  for (const status of statuses) {
-    const candidate = path.join(exhibitionsRoot, status, id);
-    if (await pathExists(candidate)) return candidate;
-  }
+  const directCandidate = path.join(exhibitionsRoot, id);
+  if (await pathExists(directCandidate)) return directCandidate;
 
-  for (const status of statuses) {
-    const statusDir = path.join(exhibitionsRoot, status);
-    if (!(await pathExists(statusDir))) continue;
-    const entries = await fs.readdir(statusDir, { withFileTypes: true });
-    for (const entry of entries) {
-      if (!entry.isDirectory()) continue;
-      const metadataPath = path.join(statusDir, entry.name, 'metadata.json');
-      if (!(await pathExists(metadataPath))) continue;
-      const raw = await fs.readFile(metadataPath, 'utf8');
-      const metadata = JSON.parse(raw);
-      if (metadata?.id === id) return path.join(statusDir, entry.name);
-    }
+  const entries = await fs.readdir(exhibitionsRoot, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const metadataPath = path.join(exhibitionsRoot, entry.name, 'metadata.json');
+    if (!(await pathExists(metadataPath))) continue;
+    const raw = await fs.readFile(metadataPath, 'utf8');
+    const metadata = JSON.parse(raw);
+    if (metadata?.id === id) return path.join(exhibitionsRoot, entry.name);
   }
 
   throw new Error(`Cannot find exhibition folder for "${id}" under ${exhibitionsRoot}`);

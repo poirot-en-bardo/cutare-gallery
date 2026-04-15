@@ -88,9 +88,9 @@ const structuredData = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={metaDescription} />
     {metaImage ? <meta name="twitter:image" content={metaImage} /> : null}
-    <link rel="icon" type="image/png" sizes="512x512" href={withBase('/favicon-big.png?v=2')} />
-    <link rel="shortcut icon" href={withBase('/favicon-big.png?v=2')} />
-    <link rel="apple-touch-icon" href={withBase('/favicon-big.png?v=2')} />
+    <link rel="icon" type="image/png" sizes="512x512" href={withBase('/images/favicon.png?v=2')} />
+    <link rel="shortcut icon" href={withBase('/images/favicon.png?v=2')} />
+    <link rel="apple-touch-icon" href={withBase('/images/favicon.png?v=2')} />
     {structuredData.map((entry) => (
       <script type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}

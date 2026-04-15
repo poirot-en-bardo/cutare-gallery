@@ -19,13 +19,13 @@ export interface Exhibition extends ExhibitionMetadata {
   status: ExhibitionStatus;
 }
 
-const metadataModules = import.meta.glob('../data/exhibitions/*/*/metadata.json', {
+const metadataModules = import.meta.glob('../data/exhibitions/*/metadata.json', {
   eager: true,
 });
-const artworksModules = import.meta.glob('../data/exhibitions/*/*/artworks.json', {
+const artworksModules = import.meta.glob('../data/exhibitions/*/artworks.json', {
   eager: true,
 });
-const posterModules = import.meta.glob('../data/exhibitions/*/*/*.{png,jpg,jpeg,webp,avif,svg}', {
+const posterModules = import.meta.glob('../data/exhibitions/*/*.{png,jpg,jpeg,webp,avif,svg}', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -62,12 +62,6 @@ function deriveStatusFromDates(startDate: string, endDate: string): ExhibitionSt
   if (today < startDate) return 'upcoming';
   if (today > endDate) return 'past';
   return 'current';
-}
-
-function statusPriority(status: ExhibitionStatus): number {
-  if (status === 'current') return 3;
-  if (status === 'upcoming') return 2;
-  return 1;
 }
 
 function parseMetadata(module: unknown): ExhibitionMetadata {
@@ -133,75 +127,23 @@ function validateDataIntegrityOnce(): void {
 
 export function getAllExhibitions(): Exhibition[] {
   validateDataIntegrityOnce();
-  const raw = Object.entries(metadataModules).map(([file, mod]) => {
+  return Object.entries(metadataModules).map(([file, mod]) => {
     const segments = file.split('/');
-    const folderStatus = segments[segments.length - 3] as ExhibitionStatus;
     const folderId = segments[segments.length - 2];
     const data = parseMetadata(mod);
-    const thumbnailPath = `../data/exhibitions/${folderStatus}/${folderId}/${data.thumbnail}`;
+    const thumbnailPath = `../data/exhibitions/${folderId}/${data.thumbnail}`;
     const thumbnail = data.thumbnail.startsWith('/')
       ? data.thumbnail
       : posterModules[thumbnailPath] || data.thumbnail;
     const status = deriveStatusFromDates(data.startDate, data.endDate);
     return {
       ...data,
+      id: data.id?.trim() || folderId,
       folderId,
       thumbnail,
       status,
-      folderStatus,
-      metadataId: data.id,
     };
   });
-
-  const metadataIdCounts = new Map<string, number>();
-  raw.forEach((entry) => {
-    const metadataId = entry.metadataId?.trim();
-    if (!metadataId) return;
-    metadataIdCounts.set(metadataId, (metadataIdCounts.get(metadataId) ?? 0) + 1);
-  });
-
-  const candidates = raw.map((entry) => {
-    const metadataId = entry.metadataId?.trim();
-    const isUniqueMetadataId = Boolean(metadataId) && metadataIdCounts.get(metadataId!) === 1;
-    const id = isUniqueMetadataId ? metadataId! : entry.folderId;
-    return {
-      ...entry,
-      id,
-    };
-  });
-
-  const byId = new Map<string, (Exhibition & { folderStatus: ExhibitionStatus })>();
-  candidates.forEach((candidate) => {
-    const existing = byId.get(candidate.id);
-    if (!existing) {
-      byId.set(candidate.id, candidate);
-      return;
-    }
-
-    const candidateMatchesStatus = candidate.folderStatus === candidate.status;
-    const existingMatchesStatus = existing.folderStatus === existing.status;
-    if (candidateMatchesStatus !== existingMatchesStatus) {
-      if (candidateMatchesStatus) byId.set(candidate.id, candidate);
-      return;
-    }
-
-    const candidatePriority = statusPriority(candidate.status);
-    const existingPriority = statusPriority(existing.status);
-    if (candidatePriority !== existingPriority) {
-      if (candidatePriority > existingPriority) {
-        byId.set(candidate.id, candidate);
-      }
-      return;
-    }
-
-    if (candidate.startDate > existing.startDate) {
-      byId.set(candidate.id, candidate);
-    }
-  });
-
-  return Array.from(byId.values()).map(
-    ({ folderStatus: _folderStatus, metadataId: _metadataId, ...exhibition }) => exhibition
-  );
 }
 
 export function getExhibitionsByStatus(status: ExhibitionStatus): Exhibition[] {
