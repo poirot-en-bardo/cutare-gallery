@@ -2,7 +2,7 @@
   {
     "id": "ramona-slug",
     "name": "Ramona Șlug",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/ramona6_gvnyo7.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/ramona_profile_dziyyz.jpg",
     "bio": "Artist vizual cu o pasiune pentru pictura abstractă și explorarea emoțiilor prin culoare.",
     "contact": "ramona.slug@cutare.art",
     "instagram": "https://www.instagram.com/ramonaslug/"
@@ -50,7 +50,7 @@
   {
     "id": "amandine-banescu",
     "name": "Amandine Banescu",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/amandine2_ix7kkk.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734562/amandine_profile_cnciee.jpg",
     "bio": "Artist si ilustrator de carte pentru copii.",
     "contact": "amandine.banescu@cutare.art",
     "instagram": "https://instagram.com/amandinescu"
@@ -82,7 +82,7 @@
   {
     "id": "selma-duteanu",
     "name": "Selma Duteanu",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/selma_emarfa.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/selma_profile_qbno2o.jpg",
     "bio": "Pictor în acuarelă cu o sensibilitate aparte pentru motive botanice si mitice.",
     "contact": "selma.duteanu@cutare.art",
     "instagram": "https://www.instagram.com/soarece.de.camp/"
@@ -98,7 +98,7 @@
   {
     "id": "iulian-milea",
     "name": "Iulian Milea",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/iulian1_r7u51z.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734562/iulian_profile_yv1qqs.jpg",
     "bio": "Meșter artizanal și constructor de instrumente muzicale tradiționale.",
     "contact": "iulian.milea@cutare.art",
     "instagram": ""
@@ -130,9 +130,17 @@
   {
     "id": "maia-stefana-oprea",
     "name": "Maia Ștefana Oprea",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1775507320/maia_t1bqfk.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/maia_profile_bhlbwe.jpg",
     "bio": "Artist vizual care folosește tehnici mixte pentru a reda memoria afectivă, fragilitatea, degradarea și regenerarea.",
     "contact": "maiaoprea@cutare.ro",
     "instagram": "https://www.instagram.com/maia_oprea_studio/"
+  },
+  {
+    "id": "eliza-balica",
+    "name": "Eliza Balica",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734564/eliza_profile_brweyp.jpg",
+    "bio": "Eliza stă și stă și în jur cresc flori.",
+    "contact": "balica.eliza.1@gmail.com",
+    "instagram": ""
   }
 ]
