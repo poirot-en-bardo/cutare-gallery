@@ -183,6 +183,8 @@ img {
 .footer-socials {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
   margin-bottom: 0.35rem;
 }
 
@@ -192,7 +194,6 @@ img {
   justify-content: center;
   width: 36px;
   height: 36px;
-  color: #c13584;
   text-decoration: none;
   transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
 }
@@ -205,9 +206,16 @@ img {
 .footer-social-link svg {
   width: 22px;
   height: 22px;
-  stroke: url(#footer-instagram-gradient);
   stroke-width: 1.8;
   fill: none;
+}
+
+.footer-social-link--instagram svg {
+  stroke: url(#footer-instagram-gradient);
+}
+
+.footer-social-link--facebook svg {
+  stroke: url(#footer-facebook-gradient);
 }
 
 .footer-icon svg {
