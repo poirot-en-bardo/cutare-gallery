@@ -28,6 +28,21 @@ const labelText = {
   past: 'Arhivă',
 };
 
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
+const renderInlineMarkup = (value: string) =>
+  escapeHtml(value)
+    .replace(/\*\*\*([^*]+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br />');
+
 const timelineEntries: Array<
   | { type: 'label'; status: keyof typeof labelText }
   | { type: 'exhibition'; status: keyof typeof labelText; exhibition: (typeof timelineSorted)[number] }
@@ -85,7 +100,7 @@ const hasExhibitions = timelineSorted.length > 0;
                     </span>
                     {entry.exhibition.location}
                   </p>
-                  <p class="feature-description">{entry.exhibition.description}</p>
+                  <p class="feature-description" set:html={renderInlineMarkup(entry.exhibition.description)}></p>
                   <span class="exhibition-link">Vezi expoziția</span>
                 </div>
               </a>
