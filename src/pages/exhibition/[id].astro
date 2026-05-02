@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArtworkCarousel from '../../components/ArtworkCarousel.astro';
+import { getAllArtists } from '../../utils/artists';
 import {
   getAllExhibitions,
   getExhibitionById,
@@ -37,6 +38,79 @@ const descriptionBlocks = exhibition
       .map((block) => block.trim())
       .filter(Boolean)
   : [];
+const normalizeLookup = (value: string) =>
+  value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+const artistIdByName = new Map(
+  getAllArtists().map((artist) => [normalizeLookup(artist.name), artist.id])
+);
+artistIdByName.set('ana-selma duteanu', 'selma-duteanu');
+artistIdByName.set('ana selma duteanu', 'selma-duteanu');
+
+const renderInlineMarkup = (value: string) => {
+  return escapeHtml(value)
+    .replace(/\*\*\*([^*]+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+?)\*/g, '<em>$1</em>');
+};
+
+const renderArtistLinkOrText = (name: string) => {
+  const artistId = artistIdByName.get(normalizeLookup(name));
+  if (!artistId) return escapeHtml(name);
+  const href = escapeHtml(withBase(`/artist/${artistId}/`));
+  return `<a class="exhibition-inline-link" href="${href}">${escapeHtml(name)}</a>`;
+};
+
+const renderDescriptionLine = (line: string) => {
+  const artistListMatch = line.match(/^(Vor participa):\s*(.+)$/u);
+  if (artistListMatch) {
+    const [, label, people] = artistListMatch;
+    const renderedPeople = people
+      .split('/')
+      .map((person) => person.trim())
+      .filter(Boolean)
+      .map(renderArtistLinkOrText)
+      .join(' / ');
+    return `${escapeHtml(label)}: ${renderedPeople}`;
+  }
+
+  const creditsMatch = line.match(/^(Curatori|Design|Playlist):\s*(.+)$/u);
+  if (creditsMatch) {
+    const [, label, people] = creditsMatch;
+    const renderedPeople = people
+      .split(',')
+      .map((person) => person.trim())
+      .filter(Boolean)
+      .map(renderArtistLinkOrText)
+      .join(', ');
+    return `${escapeHtml(label)}: ${renderedPeople}`;
+  }
+
+  return renderInlineMarkup(line);
+};
+
+const descriptionBlockHtml = (descriptionBlocks.length > 0 ? descriptionBlocks : [exhibition?.description ?? ''])
+  .map((block) =>
+    block
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map(renderDescriptionLine)
+      .join('<br />')
+  )
+  .filter(Boolean);
 const spotifyPlaylistUrl =
   exhibition?.id === '2025-1-cupricina'
     ? 'https://open.spotify.com/playlist/5SdlstCJFBpCExLvpLF8xi?si=hd8BDesfTPy_x60kCE1ymQ'
@@ -79,8 +153,8 @@ const spotifyPlaylistUrl =
         </div>
       </div>
       <div class="exhibition-description-group">
-        {(descriptionBlocks.length > 0 ? descriptionBlocks : [exhibition.description]).map((block) => (
-          <p class="exhibition-description">{block}</p>
+        {descriptionBlockHtml.map((block) => (
+          <p class="exhibition-description" set:html={block}></p>
         ))}
         {spotifyPlaylistUrl && (
           <a

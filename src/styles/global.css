@@ -1147,7 +1147,25 @@ img {
 .exhibition-summary .exhibition-description {
   color: var(--muted-readable);
   line-height: 1.65;
-  white-space: pre-line;
+}
+
+.exhibition-summary .exhibition-description em {
+  font-style: italic;
+}
+
+.exhibition-summary .exhibition-description strong {
+  font-weight: 700;
+}
+
+.exhibition-summary .exhibition-description a {
+  color: color-mix(in srgb, var(--accent) 88%, black 12%);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  text-underline-offset: 0.12em;
+}
+
+.exhibition-summary .exhibition-description a:hover {
+  color: var(--accent);
 }
 
 .exhibition-summary .exhibition-location {
