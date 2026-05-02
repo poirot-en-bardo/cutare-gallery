@@ -74,7 +74,7 @@ const renderArtistLinkOrText = (name: string) => {
 };
 
 const renderDescriptionLine = (line: string) => {
-  const artistListMatch = line.match(/^(Vor participa):\s*(.+)$/u);
+  const artistListMatch = line.match(/^(?:\*\*)?(Vor participa|Artiști|Artisti)(?:\*\*)?(?::\*\*|:)\s*(.+)$/u);
   if (artistListMatch) {
     const [, label, people] = artistListMatch;
     const renderedPeople = people
@@ -83,10 +83,10 @@ const renderDescriptionLine = (line: string) => {
       .filter(Boolean)
       .map(renderArtistLinkOrText)
       .join(' / ');
-    return `${escapeHtml(label)}: ${renderedPeople}`;
+    return `<strong>${escapeHtml(label)}</strong>: ${renderedPeople}`;
   }
 
-  const creditsMatch = line.match(/^(Curatori|Design|Playlist):\s*(.+)$/u);
+  const creditsMatch = line.match(/^(?:\*\*)?(Curatori|Design|Playlist)(?:\*\*)?(?::\*\*|:)\s*(.+)$/u);
   if (creditsMatch) {
     const [, label, people] = creditsMatch;
     const renderedPeople = people
@@ -95,7 +95,7 @@ const renderDescriptionLine = (line: string) => {
       .filter(Boolean)
       .map(renderArtistLinkOrText)
       .join(', ');
-    return `${escapeHtml(label)}: ${renderedPeople}`;
+    return `<strong>${escapeHtml(label)}</strong>: ${renderedPeople}`;
   }
 
   return renderInlineMarkup(line);

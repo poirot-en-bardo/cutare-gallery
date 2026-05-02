@@ -65,10 +65,6 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
     <div>
       <h1 class="artist-name">{artist.name}</h1>
       <p class="artist-bio">{artist.bio}</p>
-      <p class="artist-contact-line">
-        <span class="artist-contact-label">Contact:</span>{' '}
-        <span>{artist.contact}</span>
-      </p>
       {artist.instagram && (
         <a class="artist-instagram" href={artist.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
