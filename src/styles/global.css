@@ -1159,13 +1159,20 @@ img {
 
 .exhibition-summary .exhibition-description a {
   color: color-mix(in srgb, var(--accent) 88%, black 12%);
+  padding: 0.03em 0.16em;
+  margin: 0 -0.16em;
+  border-radius: 999px;
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
   text-underline-offset: 0.12em;
+  transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .exhibition-summary .exhibition-description a:hover {
   color: var(--accent);
+  background: color-mix(in srgb, var(--highlight) 22%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--highlight) 24%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 75%, transparent);
 }
 
 .exhibition-summary .exhibition-location {

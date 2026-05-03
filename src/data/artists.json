@@ -3,17 +3,21 @@
     "id": "ramona-slug",
     "name": "Ramona Șlug",
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/ramona_profile_dziyyz.jpg",
-    "bio": "Artist vizual cu o pasiune pentru pictura abstractă și explorarea emoțiilor prin culoare.",
-    "contact": "ramona.slug@cutare.art",
-    "instagram": "https://www.instagram.com/ramonaslug/"
+    "bio": "Absolventă a Universității Naționale de Arte din București, Ramona Șlug este artistă vizuală, stabilită la Curtea de Argeș și a cărei interes a fost, în ultimii ani, crearea unei punți între educație, natură, patrimoniu și practica sa artistică.\nRamona Șlug abordează tehnici diverse, de la pictură și grafică până la obiect și colaj.",
+    "contact": "",
+    "instagram": "https://www.instagram.com/ramonaslug/",
+    "email": "",
+    "website": ""
   },
   {
     "id": "ada-oprea",
     "name": "Ada Oprea",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/ada1_lznj05.jpg",
-    "bio": "Fotograf specializat în portrete autentice și scene urbane. Captează esența umană în momente neașteptate, revelând povești ascunse în expresii și gesturi.",
-    "contact": "ada.oprea@cutare.art",
-    "instagram": "https://instagram.com/archada_studio"
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777821688/ada_profile_mrkfen.jpg",
+    "bio": "Ada Otilia Oprea — arhitect și designer la Archada Studio\n\nAbsolventă de arhitectură la Universitatea de Arhitectură și Urbanism „Ion Mincu” din București, cu doi ani de studii și practică în Florența — la Florence Design Academy și în studioul Simone Micheli.\n\nPasionată de situri vechi și uitate, mai ales după masterul din Italia, unde a descoperit magia conversiei arhitecturale și cum orice clădire veche poate capătă o nouă viață și o nouă funcțiune.\n\nÎncă din copilărie a fost fascinată de arta fotografică, developând poze alături de bunicul ei într-o cameră obscură improvizată.\n\nProiectele ei de arhitectură redau spațiilor identitatea pierdută, păstrându-le autenticitatea și dându-le sens în prezent, iar fotografiile și instalațiile ei îți îndreaptă privirea către arta din detalii mai puțin vizibile pe care te ghidează să le privești.\n",
+    "contact": "",
+    "instagram": "https://instagram.com/archada_studio",
+    "email": "",
+    "website": "archada.ro"
   },
   {
     "id": "corina-eredenta-moldovan-florea",
@@ -21,7 +25,9 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770842423/corina1_fawni6.jpg",
     "bio": "Meșter în arta țesutului covoarelor traditionale și textilelor decorative.",
     "contact": "corina.moldovan@cutare.art",
-    "instagram": "https://www.instagram.com/corina_eredenta/"
+    "instagram": "https://www.instagram.com/corina_eredenta/",
+    "email": "corina.moldovan@cutare.art",
+    "website": ""
   },
   {
     "id": "dragos-nita",
@@ -29,7 +35,9 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841682/dragos_ebpvlg.jpg",
     "bio": "Artist multidisciplinar care explorează teme existențiale prin picturi pe cranii și sculpturi în os.",
     "contact": "dragos.nita@cutare.art",
-    "instagram": "https://www.instagram.com/ai_em_anneimd/"
+    "instagram": "https://www.instagram.com/ai_em_anneimd/",
+    "email": "dragos.nita@cutare.art",
+    "website": ""
   },
   {
     "id": "ionela-patareniuc",
@@ -37,23 +45,29 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841689/ionela1_ket2xo.jpg",
     "bio": "Ceramist specializat în obiecte decorative cu motive zoomorfe și abstracte.",
     "contact": "ionela.patareniuc@cutare.art",
-    "instagram": "https://www.instagram.com/tile.room/"
+    "instagram": "https://www.instagram.com/tile.room/",
+    "email": "ionela.patareniuc@cutare.art",
+    "website": ""
   },
   {
     "id": "sergiu-negulici",
     "name": "Sergiu Negulici",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/sergiu1_lfsgov.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777821688/sergiu_profile_hh9ank.jpg",
     "bio": "Street artist și creator de instalații in-situ.",
     "contact": "sergiu.negulici@cutare.art",
-    "instagram": "https://www.instagram.com/s____k_____t_"
+    "instagram": "https://www.instagram.com/s____k_____t_",
+    "email": "sergiu.negulici@cutare.art",
+    "website": ""
   },
   {
     "id": "amandine-banescu",
     "name": "Amandine Banescu",
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734562/amandine_profile_cnciee.jpg",
-    "bio": "Artist si ilustrator de carte pentru copii.",
-    "contact": "amandine.banescu@cutare.art",
-    "instagram": "https://instagram.com/amandinescu"
+    "bio": "Amandine Bănescu este ilustratoare și artist vizual centrat pe ilustrație narativă și proiecte editoriale. Construiește imagini expresive, pline de poveste și emoție. Lucrările ei îmbină un stil liber și intuitiv, jucăuș și sensibil.",
+    "contact": "",
+    "instagram": "https://instagram.com/amandinescu",
+    "email": "",
+    "website": "https://www.behance.net/amandinebanescu"
   },
   {
     "id": "ioana-binica",
@@ -61,7 +75,9 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841682/ioana1_ib8b2f.jpg",
     "bio": "Artist specializat în tehnica cianotipiei și în pictura în ulei.",
     "contact": "ioana.binica@cutare.art",
-    "instagram": "https://www.instagram.com/designlibellula.mmofra/"
+    "instagram": "https://www.instagram.com/designlibellula.mmofra/",
+    "email": "ioana.binica@cutare.art",
+    "website": ""
   },
   {
     "id": "rares-aron",
@@ -69,7 +85,9 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/rares1_gamabl.jpg",
     "bio": "Meșter pielar artizanal, creând piese unice din piele naturală.",
     "contact": "rares.aron@cutare.art",
-    "instagram": "https://www.instagram.com/roro.s.works/"
+    "instagram": "https://www.instagram.com/roro.s.works/",
+    "email": "rares.aron@cutare.art",
+    "website": ""
   },
   {
     "id": "natasa-radion",
@@ -77,31 +95,39 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/natasa_iudwyc.jpg",
     "bio": "Artist textil specializat în țesături contemporane.",
     "contact": "natasa.radion@cutare.art",
-    "instagram": ""
+    "instagram": "",
+    "email": "natasa.radion@cutare.art",
+    "website": ""
   },
   {
     "id": "selma-duteanu",
-    "name": "Selma Duteanu",
+    "name": "Ana-Selma Duteanu",
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/selma_profile_qbno2o.jpg",
-    "bio": "Pictor în acuarelă cu o sensibilitate aparte pentru motive botanice si mitice.",
-    "contact": "selma.duteanu@cutare.art",
-    "instagram": "https://www.instagram.com/soarece.de.camp/"
+    "bio": "Ana-Selma Duțeanu este profesoară de arte plastice și artist plastic. Cu multe caiete de schițe, jurnale desenate, ilustrații, documentează timpul (pe)trecut.",
+    "contact": "",
+    "instagram": "https://www.instagram.com/soarece.de.camp/",
+    "email": "",
+    "website": ""
   },
   {
     "id": "zelmira-szabo",
     "name": "Zelmira Szabó",
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/zelmi_jprw8m.jpg",
     "bio": "Ilustrator specializat în teme botanice și ludice, lucrând în acuarelă.",
-    "contact": "zelmira.szabo@cutare.art",
-    "instagram": "https://www.instagram.com/zelmirka_illustrations/"
+    "contact": "",
+    "instagram": "https://www.instagram.com/zelmirka_illustrations/",
+    "email": "",
+    "website": ""
   },
   {
     "id": "iulian-milea",
     "name": "Iulian Milea",
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734562/iulian_profile_yv1qqs.jpg",
-    "bio": "Meșter artizanal și constructor de instrumente muzicale tradiționale.",
-    "contact": "iulian.milea@cutare.art",
-    "instagram": ""
+    "bio": "Iulian Milea, creator de instrumente și muzicant din România, deține în ,,atelierul” lui din Câmpulung Muscel un muzeu viu, sonor și portabil.\n\nÎncepând din anul 2017, construiește instrumente muzicale, când a decis că va reproduce sunetul unui fluier amerindian ascultat în munți (el fiind și alpinist).\n\nMomentan are o colecție de cca 110 instrumente muzicale, create de el. Aceste instrumente reconstruiesc harta sonoră a lumii, având din toate continentele, de la triburi ascunse ori instrumente deja dispărute (existând doar în documente istorice) până la unele inventate. În afară de instrumente în atelierul lui se nasc și alte mecanisme, obiecte. Despre asta vă povestește pe site-ul lui.",
+    "contact": "",
+    "instagram": "",
+    "email": "",
+    "website": "https://iulianmilea.wordpress.com/"
   },
   {
     "id": "victor-ghiga",
@@ -109,7 +135,9 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841687/victor1_f8rwjh.jpg",
     "bio": "Sculptor în lemn specializat în forme organice și abstracte.",
     "contact": "victor.ghiga@cutare.art",
-    "instagram": "https://www.instagram.com/victorghiga/"
+    "instagram": "https://www.instagram.com/victorghiga/",
+    "email": "victor.ghiga@cutare.art",
+    "website": ""
   },
   {
     "id": "rodica",
@@ -117,30 +145,93 @@
     "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/rodica_qiwat8.jpg",
     "bio": "Meșter în arta țesutului tradițional.",
     "contact": "rodica@cutare.art",
-    "instagram": ""
+    "instagram": "",
+    "email": "rodica@cutare.art",
+    "website": ""
   },
   {
     "id": "ionut-fuscel",
     "name": "Ionuț Fuscel",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1775507495/ionut_yfgf2z.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/ionut_yfgf2z.jpg",
     "bio": "Artist câmpulungean, pictor, restaurator de frescă și restaurator în lemn.",
     "contact": "ionutfuscel@cutare.ro",
-    "instagram": ""
+    "instagram": "",
+    "email": "ionutfuscel@cutare.ro",
+    "website": ""
   },
   {
     "id": "maia-stefana-oprea",
     "name": "Maia Ștefana Oprea",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/maia_profile_bhlbwe.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/maia_profile_bhlbwe.jpg",
     "bio": "Artist vizual care folosește tehnici mixte pentru a reda memoria afectivă, fragilitatea, degradarea și regenerarea.",
     "contact": "maiaoprea@cutare.ro",
-    "instagram": "https://www.instagram.com/maia_oprea_studio/"
+    "instagram": "https://www.instagram.com/maia_oprea_studio/",
+    "email": "maiaoprea@cutare.ro",
+    "website": ""
   },
   {
     "id": "eliza-balica",
     "name": "Eliza Balica",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734564/eliza_profile_brweyp.jpg",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/eliza_profile_brweyp.jpg",
     "bio": "Eliza stă și stă și în jur cresc flori.",
     "contact": "balica.eliza.1@gmail.com",
-    "instagram": ""
+    "instagram": "",
+    "email": "balica.eliza.1@gmail.com",
+    "website": ""
+  },
+  {
+    "id": "andrei-oprea",
+    "name": "Andrei Oprea",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/andrei_oprea_profile_vaeust.jpg",
+    "bio": "Conservator-restaurator de pictura murală și piatră, inspirat de vechea estetică a frescelor medievale romanești.",
+    "contact": "",
+    "instagram": "https://www.instagram.com/coreart.andrei",
+    "email": "",
+    "website": ""
+  },
+  {
+    "id": "sabina-palel",
+    "name": "Sabina Maria Palel",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/sabina_profile_jp80th.jpg",
+    "bio": "Conservator-restaurator pictura murală, pasionată de tehnicile de lucru ale vechilor maeștri.",
+    "instagram": "",
+    "email": "sabinapalel@gmail.com",
+    "website": ""
+  },
+  {
+    "id": "cristiana-vlad",
+    "name": "Cristiana Vlad",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734562/cristiana_profile_eaxzmd.jpg",
+    "bio": "Înconjurați de brutalismul betoanelor, ne regăsim armonia în natură. Delicatețea şi perseverența plantelor mă inspiră şi mă ghidează în procesul creativ zilnic.\nAm ales să explorez formele, nuanțele de verde şi complexitatea frunzelor ca un fel de revoltă împotriva betonului, pe care aleg să-l decorez cu elemente naturale, armonizând zgomotul oraşului cu liniştea pădurii. \nLucrările reprezintă amintirea vie că suntem parte din natură, o simbioză între jungla urbană gri şi culorile vibrante ale plantelor.\n\n",
+    "instagram": "https://www.instagram.com/cristianadeseneaza/",
+    "email": "cristiana.vlad420@gmail.com",
+    "website": ""
+  },
+  {
+    "id": "theodora-vlad",
+    "name": "Theodora Vlad",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/theodora_profile_dwumzn.jpg",
+    "bio": "Lucrările reprezintă un joc personificat al paradigmelor pe care le avem despre timp. Explorează contrastul dintre poveștile trecutului și viziunile pe care le creăm despre viitor, toate existând suspendate undeva în mintea noastră. Prezentul, deși este cel mai potent și singurul punct în care viața ia formă, rămâne adesea eclipsat de intensitatea celorlalte două.\n",
+    "instagram": "https://www.instagram.com/elusive_verses/",
+    "email": "theodora.vlad26@gmail.com",
+    "website": ""
+  },
+  {
+    "id": "ioana-nicoara",
+    "name": "Ioana Nicoară",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734563/ioana_nicoara_profile_gpnweb.jpg",
+    "bio": "Ioana Nicoară (n. 1990) este o artistă vizuală care, în practica sa, îmbină animația, acuarela și realitatea augmentată, pentru a explora teme legate de identitatea personală și colectivă, experiențele femeilor și rolul comunității.",
+    "instagram": "https://www.instagram.com/ioana_nicoara/",
+    "email": "",
+    "website": "ioana-nicoara.com"
+  },
+  {
+    "id": "mihai-chitu",
+    "name": "Mihai Chițu",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777734562/mihai_chitu_profile_dqjvwt.jpg",
+    "bio": "Mihai Chițu (n. 1979) un artist vizual și sculptor român a cărui practică artistică investighează tensiunea dintre rigiditatea structurilor urbane și fragilitatea condiției umane contemporane. Absolvent al Universității Naționale de Arte din București, secția Metal, Chițu și-a dezvoltat un limbaj plastic distinct, definit prin explorarea „arheologiei prezentului”.\n\nCreația sa se situează la intersecția dintre sculptură și instalație, utilizând cu predilecție materiale industriale precum betonul, oțelul, aluminiul și rășina. Artistul transformă brutalitatea acestor elemente în metafore vizuale ale adaptării și rezilienței, integrând adesea obiecte simbolice ale tehnologiei cotidiene pentru a chestiona impactul mediului construit asupra psihicului individual.\n\nMembru al Uniunii Artiștilor Plastici din România și inițiator al rezidenței artistice BAR (Bărăști Artist Residency), artistul trăiește și creează în București și Curtea de Argeș, fiind o prezență constantă în expoziții care explorează limitele materialității și ale expresiei conceptuale.\n",
+    "instagram": "",
+    "email": "",
+    "website": "mihaichitu.wordpress.com"
   }
 ]

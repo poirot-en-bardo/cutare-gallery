@@ -112,6 +112,8 @@ function parseArtistRows(rows, sourceName) {
     name: '',
     bio: '',
     contact: '',
+    email: '',
+    website: '',
     instagram: '',
   };
 
@@ -119,6 +121,12 @@ function parseArtistRows(rows, sourceName) {
     ['nume artist', 'name'],
     ['scurta biografie', 'bio'],
     ['contact (email/telefon)', 'contact'],
+    ['email', 'email'],
+    ['e-mail', 'email'],
+    ['website', 'website'],
+    ['site', 'website'],
+    ['site web', 'website'],
+    ['pagina web', 'website'],
     ['pagina instagram (dupa caz)', 'instagram'],
   ]);
 
@@ -252,6 +260,8 @@ for (const filePath of files) {
       photoUrl: '',
       bio: meta.bio || '',
       contact: meta.contact || '',
+      email: meta.email || meta.contact || '',
+      website: meta.website || '',
       instagram: meta.instagram || '',
     };
     artists.push(newArtist);
@@ -269,6 +279,14 @@ for (const filePath of files) {
     }
     if (!existing.contact && meta.contact) {
       existing.contact = meta.contact;
+      touched = true;
+    }
+    if ((!existing.email || existing.email.trim() === '') && (meta.email || meta.contact)) {
+      existing.email = meta.email || meta.contact;
+      touched = true;
+    }
+    if ((!existing.website || existing.website.trim() === '') && meta.website) {
+      existing.website = meta.website;
       touched = true;
     }
     if ((!existing.instagram || existing.instagram.trim() === '') && meta.instagram) {

@@ -4,6 +4,8 @@ export interface Artist {
   photoUrl: string;
   bio: string;
   contact: string;
+  email?: string;
+  website?: string;
   instagram?: string;
 }
 

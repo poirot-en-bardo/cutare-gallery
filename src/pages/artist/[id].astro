@@ -45,6 +45,20 @@ const artworksByArtist = artist ? getAllExhibitions().flatMap((exhibition) => {
 }) : [];
 
 const photoUrl = artist ? withBase(artist.photoUrl) : '';
+const artistEmail = artist?.email?.trim() ?? '';
+const artistWebsite = artist?.website?.trim() ?? '';
+const artistWebsiteUrl = artistWebsite
+  ? (/^https?:\/\//i.test(artistWebsite) ? artistWebsite : `https://${artistWebsite}`)
+  : '';
+const artistWebsiteLabel = artistWebsite.replace(/^https?:\/\//i, '').replace(/\/$/, '');
+const artistInstagram = artist?.instagram?.trim() ?? '';
+const artistInstagramHandle = artistInstagram
+  ? artistInstagram
+      .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
+      .replace(/^@/, '')
+      .split(/[/?#]/)[0]
+      .replace(/\/$/, '')
+  : '';
 ---
 
 <BaseLayout
@@ -65,14 +79,38 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
     <div>
       <h1 class="artist-name">{artist.name}</h1>
       <p class="artist-bio">{artist.bio}</p>
-      {artist.instagram && (
-        <a class="artist-instagram" href={artist.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5"/>
-            <circle cx="12" cy="12" r="5"/>
-            <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
-          </svg>
-        </a>
+      {(artistWebsite || artistEmail || artistInstagram) && (
+        <div class="artist-profile-links" aria-label="Date artist">
+          {artistWebsite && (
+            <a class="artist-profile-link artist-profile-link--website" href={artistWebsiteUrl} target="_blank" rel="noopener noreferrer">
+              <svg class="artist-profile-web-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M9.4 8H7.5a4 4 0 1 0 0 8h1.9" />
+                <path d="M14.6 16h1.9a4 4 0 1 0 0-8h-1.9" />
+                <path d="M8.9 12h6.2" />
+              </svg>
+              <span>{artistWebsiteLabel}</span>
+            </a>
+          )}
+          {artistEmail && (
+            <div class="artist-profile-link artist-profile-link--email">
+              <svg class="artist-profile-mail-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="2.8" y="5.7" width="18.4" height="12.6" rx="3.9" />
+                <path d="m4.15 7.6 6.45 4.9a2.15 2.15 0 0 0 2.8 0l6.45-4.9" />
+              </svg>
+              <span>{artistEmail}</span>
+            </div>
+          )}
+          {artistInstagram && (
+            <a class="artist-profile-link artist-instagram" href={artistInstagram} target="_blank" rel="noopener noreferrer" aria-label={`Instagram ${artistInstagramHandle}`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+              </svg>
+              <span>{artistInstagramHandle}</span>
+            </a>
+          )}
+        </div>
       )}
     </div>
   </section>
@@ -641,15 +679,86 @@ const photoUrl = artist ? withBase(artist.photoUrl) : '';
 }
 
 /* --- instagram link --- */
-.artist-instagram {
+.artist-profile-links {
+  display: grid;
+  gap: 0.42rem;
+  margin-top: 0.9rem;
+}
+
+.artist-profile-link {
   display: inline-flex;
+  width: fit-content;
   align-items: center;
-  margin-top: 0.6rem;
-  color: var(--muted);
-  transition: color 0.2s ease;
+  gap: 0.78rem;
+  color: var(--muted-readable);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.94rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.artist-profile-link svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.artist-profile-link:hover {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+.artist-profile-link--email {
+  color: var(--accent);
+  cursor: default;
+}
+
+.artist-profile-link--website,
+.artist-profile-link--website:visited,
+.artist-profile-link--website:focus-visible,
+.artist-profile-link--website:hover {
+  color: var(--accent) !important;
+}
+
+.artist-profile-link--email:hover {
+  transform: none;
+}
+
+.artist-profile-link .artist-profile-mail-icon {
+  width: 22px;
+  height: 19px;
+  stroke-width: 1.65;
+}
+
+.artist-profile-link .artist-profile-web-icon {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.6;
+}
+
+.artist-instagram {
+  color: var(--accent);
+}
+
+.artist-instagram:visited,
+.artist-instagram:focus-visible {
+  color: var(--accent);
+}
+
+.artist-instagram svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
 }
 
 .artist-instagram:hover {
   color: var(--accent);
+  transform: translateX(2px);
 }
 </style>
