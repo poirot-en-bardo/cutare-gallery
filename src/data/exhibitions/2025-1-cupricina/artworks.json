@@ -298,5 +298,17 @@
     "forSale": true,
     "sold": false,
     "price": "Preț la cerere"
+  },
+  {
+    "id": "2025-1-cupricina-eliza-balica-curtea-vecinului",
+    "title": "Curtea vecinului",
+    "artistId": "eliza-balica",
+    "imageUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777920082/curtea_vecinului_mx8dlb.jpg",
+    "roomId": "4",
+    "year": "2026",
+    "description": "Instalație tip comentariu social ambivalent la adresa problemelor ridicate de defrișările masive și de creșterea necontrolată a populației urșilor bruni de pe teritoriul României.",
+    "forSale": false,
+    "sold": false,
+    "price": "Preț la cerere"
   }
 ]
