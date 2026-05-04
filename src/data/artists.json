@@ -260,5 +260,14 @@
     "instagram": "https://www.instagram.com/radu_pro_foto/",
     "email": "",
     "website": ""
+  },
+  {
+    "id": "cinty-ionescu",
+    "name": "Cinty Ionescu",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/cinty_profile_ptgsya.jpg",
+    "bio": "Cinty Ionescu este artistă multimedia și manager cultural, președinta Asociației Narative. Practica sa se situează la intersecția dintre artă video, performance și cercetare documentară, explorând memoria, arhivele și relația dintre individ și spațiu. Lucrează frecvent cu medii emergente, dezvoltând proiecte bazate pe cercetare de teren și istorie orală. Proiectele sale au fost prezentate în contexte precum MNAC - Muzeul Național de Artă Contemporană și Ars Electronica Center (Între două pastile), The Living Theatre (Romanyeah!), Württembergischer Kunstverein ((ec)static (e)motion), sau Maison des Sciences de l’Homme Paris Nord (Sospiri dei limbi), precum și în cadrul programului Timișoara 2023 – Capitală Europeană a Culturii (Povești în bucate).\n\nPractica sa include și conceperea și coordonarea de proiecte culturale complexe, realizate în echipe interdisciplinare, în care direcțiile sale artistice se extind în formate colaborative și demersuri pe termen lung, integrând procese artistice cu demersuri educaționale, de activare comunitară și de arhivare contemporană. Între proiectele sale se numără: documentarul interactiv Fața ascunsă (Premiul pentru merite deosebite în domeniul sănătății mintale prin artă în cadrul Galei Gesturilor de Suflet 2017, Fundația Estuar), expoziția site specific Green Hours Live(s) sau proiectele dezvoltate în cadrul Asociației Narative: „Ne/Re-văzut: Muscel”, „Narative și intersecții performative” și „Lumi la intersecții”.",
+    "instagram": "https://www.instagram.com/cintyionescu/",
+    "email": "",
+    "website": "www.cinty.ro"
   }
 ]
