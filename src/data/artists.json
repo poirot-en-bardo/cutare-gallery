@@ -112,12 +112,12 @@
   {
     "id": "zelmira-szabo",
     "name": "Zelmira Szabó",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/zelmi_jprw8m.jpg",
-    "bio": "Ilustrator specializat în teme botanice și ludice, lucrând în acuarelă.",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777918843/zelmi_profile_dp5uhr.jpg",
+    "bio": "Zelmira Szabó experimentează constant diferite tehnici și materiale în lucrările ei. În același timp, recunoaște importanța unui stil personal, considerându-l semnul autenticității. \nCăutând între diferite moduri de expresie, se lasă provocată și lucrează  în mai multe domenii artistice –  teatru de păpuși, design costum, scenografie, Mail Art, literatură pentru copii, ilustrație, Walking Art. De asemenea, este interesată de latura teoretică a artelor (a publicat interviuri, recenzii de cărți, critică de teatru), în special antropologia teatrului. \nConsideră că învățarea este o necesitate existențială, de aceea participă constant la ateliere, conferințe, tabere artistice, rezidențiate pentru a preda, dar și pentru a învăța.",
     "contact": "",
     "instagram": "https://www.instagram.com/zelmirka_illustrations/",
-    "email": "",
-    "website": ""
+    "email": "szelmira@yahoo.com",
+    "website": "https://zelmiraszabo.wordpress.com/"
   },
   {
     "id": "iulian-milea",
@@ -141,9 +141,9 @@
   },
   {
     "id": "rodica",
-    "name": "Rodica",
-    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/rodica_qiwat8.jpg",
-    "bio": "Meșter în arta țesutului tradițional.",
+    "name": "Rodica Goran",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777919017/rodica_profile_hwrzp4.jpg",
+    "bio": "Rodica Goran lucrează la țesături din lână, unele vopsite cu plante. Cunoaște secretele plantelor, fie în ceaiuri sau în motivele covoarelor.",
     "contact": "",
     "instagram": "",
     "email": "",
@@ -251,5 +251,14 @@
     "instagram": "https://www.instagram.com/alexjason.ig",
     "email": "alexjasoncreations@gmail.com",
     "website": "https://m.youtube.com/c/AlexJason"
+  },
+  {
+    "id": "radu-lupascu",
+    "name": "Gabriel-Radu Lupașcu",
+    "photoUrl": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777918702/radu_profile_vxugju.jpg",
+    "bio": "Un om curios, tehnic și orientat spre soluții. Leg domenii diferite între ele și caut mereu să transform cunoștințele în proiecte concrete. Am energie de constructor și explorator în același timp: îmi place să creez, să experimentez, să optimizez și să împing lucrurile dincolo de varianta lor „standard”.",
+    "instagram": "https://www.instagram.com/radu_pro_foto/",
+    "email": "",
+    "website": ""
   }
 ]
