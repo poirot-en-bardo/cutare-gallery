@@ -59,6 +59,30 @@ const artistInstagramHandle = artistInstagram
       .split(/[/?#]/)[0]
       .replace(/\/$/, '')
   : '';
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+const renderBioLinks = (value: string) => {
+  const linkPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]+)\)/g;
+  let html = '';
+  let lastIndex = 0;
+
+  for (const match of value.matchAll(linkPattern)) {
+    const [fullMatch, label, href] = match;
+    const index = match.index ?? 0;
+    const resolvedHref = href.startsWith('/') ? withBase(href) : href;
+    html += escapeHtml(value.slice(lastIndex, index));
+    html += `<a href="${escapeHtml(resolvedHref)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`;
+    lastIndex = index + fullMatch.length;
+  }
+
+  return html + escapeHtml(value.slice(lastIndex));
+};
+const artistBioHtml = artist ? renderBioLinks(artist.bio) : '';
 ---
 
 <BaseLayout
@@ -78,7 +102,7 @@ const artistInstagramHandle = artistInstagram
     </div>
     <div>
       <h1 class="artist-name">{artist.name}</h1>
-      <p class="artist-bio">{artist.bio}</p>
+      <p class="artist-bio" set:html={artistBioHtml}></p>
       {(artistWebsite || artistEmail || artistInstagram) && (
         <div class="artist-profile-links" aria-label="Date artist">
           {artistWebsite && (
@@ -94,8 +118,8 @@ const artistInstagramHandle = artistInstagram
           {artistEmail && (
             <div class="artist-profile-link artist-profile-link--email">
               <svg class="artist-profile-mail-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <rect x="2.8" y="5.7" width="18.4" height="12.6" rx="3.9" />
-                <path d="m4.15 7.6 6.45 4.9a2.15 2.15 0 0 0 2.8 0l6.45-4.9" />
+                <rect x="2" y="5.7" width="20" height="12.6" rx="3.9" />
+                <path d="m3.55 7.65 7.05 4.85a2.25 2.25 0 0 0 2.8 0l7.05-4.85" />
               </svg>
               <span>{artistEmail}</span>
             </div>
@@ -722,7 +746,9 @@ const artistInstagramHandle = artistInstagram
 .artist-profile-link--website,
 .artist-profile-link--website:visited,
 .artist-profile-link--website:focus-visible,
-.artist-profile-link--website:hover {
+.artist-profile-link--website:hover,
+.artist-profile-link--website span,
+.artist-profile-link--website svg {
   color: var(--accent) !important;
 }
 

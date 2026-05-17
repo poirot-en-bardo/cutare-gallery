@@ -4,6 +4,7 @@ import { getAllArtists } from '../utils/artists';
 import { withBase } from '../utils/withBase';
 
 const artists = getAllArtists();
+const previewBio = (value: string) => value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 ---
 
 <BaseLayout title="Artiști | Galeria Cutare" description="Descoperă artiștii din galeria Cutare">
@@ -54,7 +55,7 @@ const artists = getAllArtists();
         </div>
         <div class="artist-card-content">
           <h2 class="artist-card-name">{artist.name}</h2>
-          <p class="artist-card-bio">{artist.bio}</p>
+          <p class="artist-card-bio">{previewBio(artist.bio)}</p>
         </div>
       </a>
     ))}
