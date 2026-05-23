@@ -116,6 +116,24 @@ const spotifyPlaylistUrls: Record<string, string> = {
   '2026-5-tiparituri': 'https://open.spotify.com/playlist/7vlw7pqW9mHFnOtleVtRh7?si=Oy4d8vxlSFSvbtP-H5622Q',
 };
 const spotifyPlaylistUrl = exhibition ? spotifyPlaylistUrls[exhibition.id] ?? null : null;
+const exhibitionVideos: Record<
+  string,
+  {
+    src: string;
+    poster?: string;
+    title: string;
+    creditsHtml: string;
+  }
+> = {
+  '2026-5-tiparituri': {
+    src: 'https://res.cloudinary.com/dxyeal4gg/video/upload/v1779532787/video_ducu_compressed_cavh2h.mp4',
+    poster: 'https://res.cloudinary.com/dxyeal4gg/video/upload/f_jpg,so_0/v1779532787/video_ducu_compressed_cavh2h.jpg',
+    title: 'Video Tipărituri',
+    creditsHtml:
+      'Filmare și montaj: Dan Duca (<a href="https://atlascultural.org/" target="_blank" rel="noreferrer">Asociația Atlas Cultural</a>)',
+  },
+};
+const exhibitionVideo = exhibition ? exhibitionVideos[exhibition.id] ?? null : null;
 ---
 
 <BaseLayout
@@ -179,10 +197,30 @@ const spotifyPlaylistUrl = exhibition ? spotifyPlaylistUrls[exhibition.id] ?? nu
   </section>
 
   {isUpcoming ? (
-    <div class="placeholder-panel">
-      <h2>Mai multe detalii în curând</h2>
-      <!--<p></p>-->
-    </div>
+    exhibitionVideo ? (
+      <section class="exhibition-video-section" aria-label={`Video ${exhibition.title}`}>
+        <div class={`exhibition-video-frame ${exhibitionVideo.src ? '' : 'exhibition-video-frame--empty'}`}>
+          {exhibitionVideo.src ? (
+            <video
+              class="exhibition-video"
+              controls
+              preload="metadata"
+              poster={exhibitionVideo.poster ?? exhibition.thumbnail}
+              aria-label={exhibitionVideo.title}
+            >
+              <source src={exhibitionVideo.src} />
+            </video>
+          ) : (
+            <div class="exhibition-video-placeholder" role="img" aria-label={exhibitionVideo.title}>
+              <span>Video</span>
+            </div>
+          )}
+        </div>
+        <p class="exhibition-video-credits" set:html={exhibitionVideo.creditsHtml}></p>
+      </section>
+    ) : (
+      null
+    )
   ) : (
     <section class="timeline room-timeline" aria-label="Sălile expoziției" data-room-timeline>
       <div class="timeline-rail" aria-hidden="true"></div>
