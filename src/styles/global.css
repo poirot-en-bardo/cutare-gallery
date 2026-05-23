@@ -1296,6 +1296,7 @@ img {
   padding: 0.1rem 0;
   color: var(--muted-readable);
   font-size: 0.94rem;
+  font-style: italic;
   line-height: 1.35;
 }
 
@@ -1927,13 +1928,14 @@ img {
 
   .exhibition-header {
     grid-template-columns: max-content 1fr;
-    align-items: center;
+    align-items: start;
     column-gap: 2rem;
   }
 
   .exhibition-hero .poster-frame {
     height: 420px;
     max-width: 300px;
+    margin-top: 0.45rem;
   }
 
   .exhibition-summary {
@@ -1941,7 +1943,6 @@ img {
     flex-direction: column;
     justify-content: flex-start;
     min-height: 420px;
-    padding-top: 2.5rem;
   }
 
   .exhibition-summary--with-spotify {
