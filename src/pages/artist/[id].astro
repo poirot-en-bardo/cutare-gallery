@@ -449,14 +449,30 @@ const artistBioHtml = artist ? renderBioLinks(artist.bio) : '';
 }
 
 .artist-gallery-description {
+  max-height: 5.6rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.35rem;
   font-size: 0.95rem;
   color: var(--muted-readable);
   line-height: 1.4;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent) 42%, transparent) transparent;
+}
+
+.artist-gallery-description::-webkit-scrollbar {
+  width: 5px;
+}
+
+.artist-gallery-description::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.artist-gallery-description::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 36%, transparent);
 }
 
 .artist-gallery-exhibition {
