@@ -3,8 +3,16 @@
     "artistId": "eliza-balica",
     "images": [
       {
-        "src": "",
-        "alt": "Preview Tipărituri - Eliza Balica"
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247429/Eliza2_msuqao.webp",
+        "alt": "Preview Tipărituri - Eliza Balica, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247429/Eliza3_a5ijvd.webp",
+        "alt": "Preview Tipărituri - Eliza Balica, detaliu 2"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247427/Eliza1_teb0em.webp",
+        "alt": "Preview Tipărituri - Eliza Balica, detaliu 3"
       }
     ]
   },
@@ -12,42 +20,16 @@
     "artistId": "amandine-banescu",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247426/Amandine4_cy2vew.webp",
         "alt": "Preview Tipărituri - Amandine Bănescu, detaliu 1"
       },
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247427/Amandine3_xre8tw.webp",
         "alt": "Preview Tipărituri - Amandine Bănescu, detaliu 2"
-      }
-    ]
-  },
-  {
-    "artistId": "mihai-chitu",
-    "images": [
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Mihai Chițu, detaliu 1"
       },
       {
-        "src": "",
-        "alt": "Preview Tipărituri - Mihai Chițu, detaliu 2"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Mihai Chițu, detaliu 3"
-      }
-    ]
-  },
-  {
-    "artistId": "selma-duteanu",
-    "images": [
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Ana-Selma Duțeanu, detaliu 1"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Ana-Selma Duțeanu, detaliu 2"
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247427/Amandine2_l3zsmf.webp",
+        "alt": "Preview Tipărituri - Amandine Bănescu, detaliu 3"
       }
     ]
   },
@@ -55,8 +37,12 @@
     "artistId": "ionut-fuscel",
     "images": [
       {
-        "src": "",
-        "alt": "Preview Tipărituri - Ionuț Fușcel"
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247431/Ionut_vq1upz.webp",
+        "alt": "Preview Tipărituri - Ionuț Fușcel, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247431/Ionut2_t7kqkb.webp",
+        "alt": "Preview Tipărituri - Ionuț Fușcel, detaliu 2"
       }
     ]
   },
@@ -64,16 +50,12 @@
     "artistId": "rodica",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247816/Rodica3_s5snq6.webp",
         "alt": "Preview Tipărituri - Rodica Goran, detaliu 1"
       },
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247816/Rodica2_tptsxt.webp",
         "alt": "Preview Tipărituri - Rodica Goran, detaliu 2"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Rodica Goran, detaliu 3"
       }
     ]
   },
@@ -81,12 +63,16 @@
     "artistId": "cinty-ionescu",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247428/Cinty1_jihtyg.webp",
         "alt": "Preview Tipărituri - Cinty Ionescu, detaliu 1"
       },
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247426/Cinty2_izpxkk.webp",
         "alt": "Preview Tipărituri - Cinty Ionescu, detaliu 2"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247428/Cinty3_ubwu8a.webp",
+        "alt": "Preview Tipărituri - Cinty Ionescu, detaliu 3"
       }
     ]
   },
