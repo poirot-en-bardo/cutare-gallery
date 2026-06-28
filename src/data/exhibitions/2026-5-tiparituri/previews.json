@@ -80,7 +80,7 @@
     "artistId": "alex-jason",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247426/Alex_ikbk9c.webp",
         "alt": "Preview Tipărituri - Alex Jason"
       }
     ]
@@ -89,29 +89,8 @@
     "artistId": "maia-stefana-oprea",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782680105/maia1_ea2cll.webp",
         "alt": "Preview Tipărituri - Maia-Ștefana Oprea, detaliu 1"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Maia-Ștefana Oprea, detaliu 2"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Maia-Ștefana Oprea, detaliu 3"
-      }
-    ]
-  },
-  {
-    "artistId": "sabina-palel",
-    "images": [
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Sabina Maria Palel, detaliu 1"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Sabina Maria Palel, detaliu 2"
       }
     ]
   },
@@ -119,8 +98,16 @@
     "artistId": "ramona-slug",
     "images": [
       {
-        "src": "",
-        "alt": "Preview Tipărituri - Ramona Șlug"
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247433/Ramona1_r3kits.webp",
+        "alt": "Preview Tipărituri - Ramona Șlug, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782680104/ramona3_gxt3jm.webp",
+        "alt": "Preview Tipărituri - Ramona Șlug, detaliu 2"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782680423/ramona2_pokflr.webp",
+        "alt": "Preview Tipărituri - Ramona Șlug, detaliu 3"
       }
     ]
   },
@@ -128,16 +115,12 @@
     "artistId": "zelmira-szabo",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247436/Zelmi2_cdx9ku.webp",
         "alt": "Preview Tipărituri - Zelmira Szabó, detaliu 1"
       },
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247435/Zelmi1_h4xfaq.webp",
         "alt": "Preview Tipărituri - Zelmira Szabó, detaliu 2"
-      },
-      {
-        "src": "",
-        "alt": "Preview Tipărituri - Zelmira Szabó, detaliu 3"
       }
     ]
   },
@@ -145,12 +128,134 @@
     "artistId": "cristiana-vlad",
     "images": [
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782680424/cristiana2_q6zc1c.webp",
         "alt": "Preview Tipărituri - Cristiana Vlad, detaliu 1"
       },
       {
-        "src": "",
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247428/Cristiana_Theodora_tlhpxe.webp",
         "alt": "Preview Tipărituri - Cristiana Vlad, detaliu 2"
+      }
+    ]
+  },
+  {
+    "artistId": "sergiu-negulici",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247435/Sergiu4_sdjnzg.webp",
+        "alt": "Preview Tipărituri - Sergiu Negulici, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247434/Sergiu2_jux5oh.webp",
+        "alt": "Preview Tipărituri - Sergiu Negulici, detaliu 2"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247435/Sergiu3_yc9ixd.webp",
+        "alt": "Preview Tipărituri - Sergiu Negulici, detaliu 3"
+      }
+    ]
+  },
+  {
+    "artistId": "selma-duteanu",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247434/Selma_psnjub.webp",
+        "alt": "Preview Tipărituri - Selma Duteanu"
+      }
+    ]
+  },
+  {
+    "artistId": "andrei-oprea",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782680655/Andrei1_jsvnv3.webp",
+        "alt": "Preview Tipărituri - Andrei Oprea"
+      }
+    ]
+  },
+  {
+    "artistId": "ada-oprea",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782680737/Ada3_kix0tl.webp",
+        "alt": "Preview Tipărituri - Ada Oprea, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247426/Ada1_qo1cyx.webp",
+        "alt": "Preview Tipărituri - Ada Oprea, detaliu 2"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247425/Ada2_eytipb.webp",
+        "alt": "Preview Tipărituri - Ada Oprea, detaliu 3"
+      }
+    ]
+  },
+  {
+    "artistId": "mihai-iacob",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247432/Mihai_I1_hbnmzh.webp",
+        "alt": "Preview Tipărituri - Mihai Iacob"
+      }
+    ]
+  },
+  {
+    "artistId": "mihai-chitu",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247432/Mihai_C1_ticm6f.webp",
+        "alt": "Preview Tipărituri - Mihai Chițu"
+      }
+    ]
+  },
+  {
+    "artistId": "radu-lupascu",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247433/Radu1_ngq5jp.webp",
+        "alt": "Preview Tipărituri - Radu Lupașcu, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247433/Radu3_jhbqxr.webp",
+        "alt": "Preview Tipărituri - Radu Lupașcu, detaliu 2"
+      }
+    ]
+  },
+  {
+    "artistId": "ioana-binica",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247430/Ioana_B3_wmhb6l.webp",
+        "alt": "Preview Tipărituri - Ioana Binică, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247430/Ioana_B1_mjisdc.webp",
+        "alt": "Preview Tipărituri - Ioana Binică, detaliu 2"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247430/Ioana_B2_tjtb6b.webp",
+        "alt": "Preview Tipărituri - Ioana Binică, detaliu 3"
+      }
+    ]
+  },
+  {
+    "artistId": "ioana-nicoara",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247430/Ioana_N1_jyjq8b.webp",
+        "alt": "Preview Tipărituri - Ioana Nicoară, detaliu 1"
+      },
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247431/Ioana_N2_b7rtnc.webp",
+        "alt": "Preview Tipărituri - Ioana Nicoară, detaliu 2"
+      }
+    ]
+  },
+  {
+    "artistId": "Iulian Milea",
+    "images": [
+      {
+        "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1782247432/Iulian1_qct0ue.webp",
+        "alt": "Preview Tipărituri - Iulian Milea"
       }
     ]
   }

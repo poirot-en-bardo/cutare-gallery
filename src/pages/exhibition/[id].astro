@@ -150,14 +150,13 @@ const exhibitionPreviewData: Record<string, ExhibitionPreviewGroup[]> = {
 };
 const artistsById = new Map(allArtists.map((artist) => [artist.id, artist]));
 const getLastNameKey = (name: string) => name.trim().split(/\s+/).at(-1) ?? name;
-const defaultPreviewPositions = ['50% 50%', '22% 48%', '76% 44%'];
+const defaultPreviewPositions = ['50% 50%'];
 const exhibitionPreviewGroups = exhibition
   ? (exhibitionPreviewData[exhibition.id] ?? [])
       .flatMap((group, groupIndex) => {
         const artist = artistsById.get(group.artistId);
-        const images = group.images
+        const mappedImages = group.images
           .filter(Boolean)
-          .slice(0, 3)
           .map((image, imageIndex) => {
             const src = image.src?.trim();
             return {
@@ -165,7 +164,15 @@ const exhibitionPreviewGroups = exhibition
               alt: image.alt?.trim() || `${artist?.name ?? 'Artist'}, preview ${imageIndex + 1}`,
               position: image.position?.trim() || defaultPreviewPositions[imageIndex] || '50% 50%',
             };
-          });
+          })
+          .filter((image) => Boolean(image.src));
+        const images = mappedImages.length > 0
+          ? mappedImages
+          : [{
+              src: '',
+              alt: `${artist?.name ?? 'Artist'}, imagine în pregătire`,
+              position: '50% 50%',
+            }];
         if (!artist || images.length === 0) return [];
         return [{
           artist,
@@ -266,58 +273,64 @@ const exhibitionPreviewGroups = exhibition
   )}
 
   {exhibitionPreviewGroups.length > 0 && (
-    <section class="tiparituri-preview" aria-label={`Artiști ${exhibition.title}`}>
-      <div class="tiparituri-carousel" data-tiparituri-carousel>
-        <div class="tiparituri-carousel-window">
-          <div class="tiparituri-carousel-track" data-tiparituri-track>
-            {exhibitionPreviewGroups.map((group) => (
-              <article
-                class="tiparituri-carousel-slide"
-                data-tiparituri-slide
-                aria-label={group.artist.name}
-              >
-                <div
-                  class="tiparituri-carousel-media"
-                  data-image-count={group.images.length}
-                  data-layout={group.layout}
-                >
-                  {group.images.map((image) => (
-                    <figure
-                      class={`tiparituri-preview-tile ${image.src ? '' : 'tiparituri-preview-tile--empty'}`}
-                      style={`--preview-position: ${image.position};`}
-                    >
-                      {image.src ? (
-                        <img src={image.src} alt={image.alt} loading="lazy" />
-                      ) : (
-                        <span aria-hidden="true"></span>
-                      )}
-                    </figure>
-                  ))}
-                </div>
-                <a class="tiparituri-preview-artist-link" href={withBase(`/artist/${group.artist.id}/`)}>
-                  {group.artist.name}
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-        <button class="tiparituri-carousel-arrow tiparituri-carousel-arrow--prev" type="button" aria-label="Artist anterior" data-tiparituri-prev>
+    <section class="tiparituri-preview" aria-labelledby="tiparituri-preview-title">
+      <div class="tiparituri-preview-heading">
+        <h2 id="tiparituri-preview-title">Lucrări expuse</h2>
+      </div>
+      <div class="tiparituri-tile-grid" data-tiparituri-grid>
+        {exhibitionPreviewGroups.map((group) => (
+          <article class="tiparituri-tile-card">
+            <button
+              class="tiparituri-tile"
+              type="button"
+              data-tiparituri-tile
+              data-active-index="0"
+              aria-label={`Deschide imaginea pentru ${group.artist.name}`}
+            >
+              <span class="tiparituri-tile-images">
+                {group.images.map((image, imageIndex) => (
+                  <span
+                    class={`tiparituri-tile-image ${image.src ? '' : 'tiparituri-tile-image--empty'} ${imageIndex === 0 ? 'is-active' : ''}`}
+                    data-tiparituri-image
+                    data-full-src={image.src}
+                    data-full-alt={image.alt}
+                    style={`--preview-position: ${image.position};`}
+                    aria-hidden={imageIndex === 0 ? 'false' : 'true'}
+                  >
+                    {image.src ? (
+                      <img src={image.src} alt={image.alt} loading="lazy" />
+                    ) : (
+                      <span aria-hidden="true"></span>
+                    )}
+                  </span>
+                ))}
+              </span>
+              <span class="tiparituri-tile-name">{group.artist.name}</span>
+            </button>
+          </article>
+        ))}
+      </div>
+      <dialog class="tiparituri-lightbox" data-tiparituri-lightbox aria-label="Imagine Tipărituri">
+        <button class="tiparituri-lightbox-close" type="button" aria-label="Închide imaginea" data-tiparituri-lightbox-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <button class="tiparituri-lightbox-nav tiparituri-lightbox-nav--prev" type="button" aria-label="Imaginea anterioară" data-tiparituri-lightbox-prev>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M15 18l-6-6 6-6" />
           </svg>
         </button>
-        <button class="tiparituri-carousel-arrow tiparituri-carousel-arrow--next" type="button" aria-label="Artist următor" data-tiparituri-next>
+        <button class="tiparituri-lightbox-nav tiparituri-lightbox-nav--next" type="button" aria-label="Imaginea următoare" data-tiparituri-lightbox-next>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M9 6l6 6-6 6" />
           </svg>
         </button>
-        <div class="tiparituri-carousel-footer" aria-hidden="true">
-          <span class="tiparituri-carousel-count" data-tiparituri-count>01 / {String(exhibitionPreviewGroups.length).padStart(2, '0')}</span>
-          <div class="tiparituri-carousel-progress">
-            <span data-tiparituri-progress></span>
-          </div>
-        </div>
-      </div>
+        <figure class="tiparituri-lightbox-figure">
+          <img data-tiparituri-lightbox-image alt="" />
+          <figcaption data-tiparituri-lightbox-caption></figcaption>
+        </figure>
+      </dialog>
     </section>
   )}
 
@@ -470,58 +483,87 @@ const exhibitionPreviewGroups = exhibition
     </script>
   )}
 
-  {exhibitionPreviewGroups.length > 1 && (
+  {exhibitionPreviewGroups.length > 0 && (
     <script is:inline>
-      const carousel = document.querySelector('[data-tiparituri-carousel]');
-      const track = carousel?.querySelector('[data-tiparituri-track]');
-      const slides = Array.from(carousel?.querySelectorAll('[data-tiparituri-slide]') ?? []);
-      const previousButton = carousel?.querySelector('[data-tiparituri-prev]');
-      const nextButton = carousel?.querySelector('[data-tiparituri-next]');
-      const count = carousel?.querySelector('[data-tiparituri-count]');
-      const progress = carousel?.querySelector('[data-tiparituri-progress]');
-      const intervalMs = 6000;
-      let currentIndex = 0;
-      let timer = 0;
+      const grid = document.querySelector('[data-tiparituri-grid]');
+      const tiles = Array.from(grid?.querySelectorAll('[data-tiparituri-tile]') ?? []);
+      const lightbox = document.querySelector('[data-tiparituri-lightbox]');
+      const lightboxImage = lightbox?.querySelector('[data-tiparituri-lightbox-image]');
+      const lightboxCaption = lightbox?.querySelector('[data-tiparituri-lightbox-caption]');
+      const lightboxClose = lightbox?.querySelector('[data-tiparituri-lightbox-close]');
+      const lightboxPrevious = lightbox?.querySelector('[data-tiparituri-lightbox-prev]');
+      const lightboxNext = lightbox?.querySelector('[data-tiparituri-lightbox-next]');
+      const lightboxItems = Array.from(document.querySelectorAll('[data-tiparituri-image]'))
+        .filter((image) => Boolean(image.getAttribute('data-full-src')));
+      const intervalMs = 5000;
+      let tileCursor = 0;
+      let lightboxIndex = 0;
 
-      const setActiveSlide = (index) => {
-        if (!track || slides.length === 0) return;
-        currentIndex = (index + slides.length) % slides.length;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        slides.forEach((slide, slideIndex) => {
-          slide.toggleAttribute('aria-hidden', slideIndex !== currentIndex);
+      const setActiveImage = (tile, imageIndex) => {
+        const images = Array.from(tile.querySelectorAll('[data-tiparituri-image]'));
+        if (images.length < 2) return;
+        const nextIndex = (imageIndex + images.length) % images.length;
+        tile.dataset.activeIndex = String(nextIndex);
+        images.forEach((image, index) => {
+          const isActive = index === nextIndex;
+          image.classList.toggle('is-active', isActive);
+          image.setAttribute('aria-hidden', isActive ? 'false' : 'true');
         });
-        if (count) {
-          count.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      };
+
+      const advanceNextTile = () => {
+        if (tiles.length === 0) return;
+        const tile = tiles[tileCursor];
+        const currentIndex = Number.parseInt(tile.dataset.activeIndex || '0', 10);
+        setActiveImage(tile, currentIndex + 1);
+        tileCursor = (tileCursor + 1) % tiles.length;
+      };
+
+      const openLightboxAt = (index) => {
+        if (!lightbox || !lightboxImage || !lightboxCaption || lightboxItems.length === 0) return;
+        lightboxIndex = (index + lightboxItems.length) % lightboxItems.length;
+        const item = lightboxItems[lightboxIndex];
+        const src = item.getAttribute('data-full-src') || '';
+        const alt = item.getAttribute('data-full-alt') || '';
+        if (!src) return;
+        lightboxImage.setAttribute('src', src);
+        lightboxImage.setAttribute('alt', alt);
+        lightboxCaption.textContent = alt;
+        if (!lightbox.open) {
+          lightbox.showModal();
         }
-        if (progress) {
-          progress.style.transform = `scaleX(${(currentIndex + 1) / slides.length})`;
+      };
+
+      tiles.forEach((tile) => {
+        tile.addEventListener('click', () => {
+          const activeImage = tile.querySelector('[data-tiparituri-image].is-active');
+          const src = activeImage?.getAttribute('data-full-src') || '';
+          if (!src) return;
+          const index = lightboxItems.indexOf(activeImage);
+          openLightboxAt(index >= 0 ? index : 0);
+        });
+      });
+
+      lightboxPrevious?.addEventListener('click', () => openLightboxAt(lightboxIndex - 1));
+      lightboxNext?.addEventListener('click', () => openLightboxAt(lightboxIndex + 1));
+      lightboxClose?.addEventListener('click', () => lightbox?.close());
+      lightbox?.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+          lightbox.close();
         }
-      };
-
-      const stop = () => {
-        if (!timer) return;
-        window.clearInterval(timer);
-        timer = 0;
-      };
-
-      const start = () => {
-        stop();
-        timer = window.setInterval(() => setActiveSlide(currentIndex + 1), intervalMs);
-      };
-
-      previousButton?.addEventListener('click', () => {
-        setActiveSlide(currentIndex - 1);
-        start();
       });
-      nextButton?.addEventListener('click', () => {
-        setActiveSlide(currentIndex + 1);
-        start();
+      lightbox?.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          openLightboxAt(lightboxIndex - 1);
+        }
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          openLightboxAt(lightboxIndex + 1);
+        }
       });
-      carousel?.addEventListener('focusin', stop);
-      carousel?.addEventListener('focusout', start);
 
-      setActiveSlide(0);
-      start();
+      window.setInterval(advanceNextTile, intervalMs);
     </script>
   )}
     </>
