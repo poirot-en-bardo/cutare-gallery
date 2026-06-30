@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArtworkCarousel from '../../components/ArtworkCarousel.astro';
 import tiparituriPreviewData from '../../data/exhibitions/2026-5-tiparituri/previews.json';
+import cupricinaPreviews from '../../data/exhibitions/2025-1-cupricina/previews.json';
 import { getAllArtists } from '../../utils/artists';
 import {
   getAllExhibitions,
@@ -147,6 +148,7 @@ type ExhibitionPreviewGroup = {
 };
 const exhibitionPreviewData: Record<string, ExhibitionPreviewGroup[]> = {
   '2026-5-tiparituri': tiparituriPreviewData as ExhibitionPreviewGroup[],
+  '2025-1-cupricina': cupricinaPreviews as ExhibitionPreviewGroup[],
 };
 const artistsById = new Map(allArtists.map((artist) => [artist.id, artist]));
 const getLastNameKey = (name: string) => name.trim().split(/\s+/).at(-1) ?? name;
@@ -334,7 +336,7 @@ const exhibitionPreviewGroups = exhibition
     </section>
   )}
 
-  {!isUpcoming && (
+  {!isUpcoming && exhibitionPreviewGroups.length === 0 && (
     <section class="timeline room-timeline" aria-label="Sălile expoziției" data-room-timeline>
       <div class="timeline-rail" aria-hidden="true"></div>
       <div class="timeline-list">
@@ -358,7 +360,7 @@ const exhibitionPreviewGroups = exhibition
     </section>
   )}
 
-  {!isUpcoming && roomsWithArtworks.length > 0 && (
+  {!isUpcoming && roomsWithArtworks.length > 0 && exhibitionPreviewGroups.length === 0 && (
     <script>
       const rows = Array.from(document.querySelectorAll('[data-room-timeline-row]'));
       const timeline = document.querySelector('[data-room-timeline]');

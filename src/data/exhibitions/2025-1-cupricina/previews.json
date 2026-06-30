@@ -1,0 +1,117 @@
+[
+  {
+    "artistId": "ramona-slug",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/ramona6_gvnyo7.jpg", "alt": "CuPricina - Ramona Șlug, lucrare 1" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/ramona7_crw2iv.jpg", "alt": "CuPricina - Ramona Șlug, lucrare 2" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841685/ramona2_ybdvgr.jpg", "alt": "CuPricina - Ramona Șlug, lucrare 3" }
+    ]
+  },
+  {
+    "artistId": "ada-oprea",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/ada1_lznj05.jpg", "alt": "CuPricina - Ada Oprea" }
+    ]
+  },
+  {
+    "artistId": "corina-eredenta-moldovan-florea",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770842423/corina1_fawni6.jpg", "alt": "CuPricina - Corina Moldovan Florea, lucrare 1" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/corina2_paipgc.jpg", "alt": "CuPricina - Corina Moldovan Florea, lucrare 2" }
+    ]
+  },
+  {
+    "artistId": "dragos-nita",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841682/dragos_ebpvlg.jpg", "alt": "CuPricina - Dragoș Niță" }
+    ]
+  },
+  {
+    "artistId": "ionela-patareniuc",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841689/ionela1_ket2xo.jpg", "alt": "CuPricina - Ionela Pătăreniuc, lucrare 1" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841688/ionela2_v1gdci.jpg", "alt": "CuPricina - Ionela Pătăreniuc, lucrare 2" }
+    ]
+  },
+  {
+    "artistId": "sergiu-negulici",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/sergiu1_lfsgov.jpg", "alt": "CuPricina - Sergiu Negulici" }
+    ]
+  },
+  {
+    "artistId": "amandine-banescu",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/amandine2_ix7kkk.jpg", "alt": "CuPricina - Amandine Bănescu, lucrare 1" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/amandine1_wbqvyy.jpg", "alt": "CuPricina - Amandine Bănescu, lucrare 2" }
+    ]
+  },
+  {
+    "artistId": "ioana-binica",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841682/ioana1_ib8b2f.jpg", "alt": "CuPricina - Ioana Binică" }
+    ]
+  },
+  {
+    "artistId": "rares-aron",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/rares1_gamabl.jpg", "alt": "CuPricina - Rareș Aron" }
+    ]
+  },
+  {
+    "artistId": "natasa-radion",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/natasa_iudwyc.jpg", "alt": "CuPricina - Natașa Radion" }
+    ]
+  },
+  {
+    "artistId": "selma-duteanu",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841681/selma_emarfa.jpg", "alt": "CuPricina - Selma Duteanu" }
+    ]
+  },
+  {
+    "artistId": "zelmira-szabo",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841683/zelmi_jprw8m.jpg", "alt": "CuPricina - Zelmira Szabó" }
+    ]
+  },
+  {
+    "artistId": "iulian-milea",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/iulian1_r7u51z.jpg", "alt": "CuPricina - Iulian Milea, lucrare 1" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841682/iulian2_troskh.jpg", "alt": "CuPricina - Iulian Milea, lucrare 2" },
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841682/iulian3_goumjd.jpg", "alt": "CuPricina - Iulian Milea, lucrare 3" }
+    ]
+  },
+  {
+    "artistId": "victor-ghiga",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841687/victor1_f8rwjh.jpg", "alt": "CuPricina - Victor Ghiga" }
+    ]
+  },
+  {
+    "artistId": "rodica",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1770841684/rodica_qiwat8.jpg", "alt": "CuPricina - Rodica" }
+    ]
+  },
+  {
+    "artistId": "ionut-fuscel",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1775507495/ionut_yfgf2z.jpg", "alt": "CuPricina - Ionuț Fușcel" }
+    ]
+  },
+  {
+    "artistId": "maia-stefana-oprea",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1775507320/maia_t1bqfk.jpg", "alt": "CuPricina - Maia-Ștefana Oprea" }
+    ]
+  },
+  {
+    "artistId": "eliza-balica",
+    "images": [
+      { "src": "https://res.cloudinary.com/dxyeal4gg/image/upload/v1777920082/curtea_vecinului_mx8dlb.jpg", "alt": "CuPricina - Eliza Balica" }
+    ]
+  }
+]
