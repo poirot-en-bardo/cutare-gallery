@@ -1343,7 +1343,6 @@ img {
 }
 
 .tiparituri-tile-card {
-  position: relative;
   min-width: 0;
 }
 
@@ -1374,7 +1373,7 @@ img {
   transition: opacity 0.24s ease;
 }
 
-.tiparituri-tile-card:hover .tiparituri-tile::after {
+.tiparituri-tile:hover::after {
   opacity: 0.98;
 }
 
@@ -1419,7 +1418,7 @@ img {
   opacity: 0.72;
 }
 
-.tiparituri-tile-card:hover .tiparituri-tile-image.is-active img {
+.tiparituri-tile:hover .tiparituri-tile-image.is-active img {
   transform: scale(1.018);
   filter: saturate(1.04) contrast(1.02);
 }
@@ -1438,12 +1437,6 @@ img {
   letter-spacing: 0.02em;
   text-align: left;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
-  transition: color 0.2s ease;
-}
-
-.tiparituri-tile-name:hover {
-  color: #fff;
-  text-decoration: underline;
 }
 
 .tiparituri-lightbox {
@@ -1478,6 +1471,19 @@ img {
   font-size: 0.95rem;
   font-style: italic;
   line-height: 1.35;
+}
+
+.lightbox-artist-link {
+  color: white;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.lightbox-artist-link:hover {
+  color: var(--highlight);
 }
 
 .tiparituri-lightbox-close,
