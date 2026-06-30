@@ -1234,7 +1234,7 @@ img {
 .location-icon svg {
   width: 14px;
   height: 14px;
-  fill: var(--highlight);
+  fill: var(--accent);
   display: block;
   transform: translateY(-1px);
 }
