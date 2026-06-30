@@ -44,7 +44,7 @@ const previewBio = (value: string) => value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$
   <section class="artists-grid">
     {artists.map((artist) => (
       <a
-        href={`artist/${artist.id}/`}
+        href={withBase(`/artist/${artist.id}/`)}
         class="artist-card"
         data-artist-card
         data-artist-name={artist.name}
@@ -66,6 +66,30 @@ const previewBio = (value: string) => value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$
   const searchInput = document.querySelector('#artist-search-input');
   const cards = Array.from(document.querySelectorAll('[data-artist-card]'));
 
+  const adjustBioClamps = () => {
+    cards.forEach((card) => {
+      if (card.style.display === 'none') return;
+      const nameEl = card.querySelector('.artist-card-name');
+      const bioEl = card.querySelector('.artist-card-bio');
+      if (!nameEl || !bioEl) return;
+
+      // Reset to 2 lines to measure accurately
+      bioEl.style.webkitLineClamp = '2';
+      
+      const styles = getComputedStyle(nameEl);
+      let lh = parseFloat(styles.lineHeight);
+      if (isNaN(lh)) {
+        // Fallback if lineHeight is 'normal'
+        lh = parseFloat(styles.fontSize) * 1.2;
+      }
+      
+      // Check if name is multi-line
+      const isMultiLine = nameEl.offsetHeight > lh * 1.5;
+      
+      bioEl.style.webkitLineClamp = isMultiLine ? '1' : '2';
+    });
+  };
+
   const normalize = (value) => {
     if (!value) return '';
     return value
@@ -83,43 +107,57 @@ const previewBio = (value: string) => value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$
       const isMatch = !query || name.includes(query) || id.includes(query);
       card.style.display = isMatch ? '' : 'none';
     });
+    adjustBioClamps();
   };
 
   if (searchInput) {
     searchInput.addEventListener('input', updateCards);
   }
+
+  // Initial adjustment
+  adjustBioClamps();
+  
+  // Update on resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(adjustBioClamps, 100);
+  });
 </script>
 
 <style>
 .artists-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
   margin-top: 2rem;
 }
 
 @media (min-width: 700px) {
   .artists-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
   }
 }
 
 @media (min-width: 1000px) {
   .artists-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
   }
 }
 
 .artist-card {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  display: block;
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
+  aspect-ratio: 1 / 1;
 }
 
 .artist-card:hover {
@@ -128,39 +166,83 @@ const previewBio = (value: string) => value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$
   transform: translateY(-4px);
 }
 
+.artist-card:hover .artist-card-image img {
+  transform: scale(1.05);
+}
+
 .artist-card-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   overflow: hidden;
   background: var(--paper);
+}
+
+.artist-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .artist-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 .artist-card-content {
-  padding: 1.5rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.4rem 0.4rem;
+  z-index: 2;
 }
 
 .artist-card-name {
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin: 0 0 0.75rem;
-  color: var(--accent);
+  line-height: 1.2;
+  margin: 0 0 0.15rem;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .artist-card-bio {
   margin: 0;
-  color: var(--muted-readable);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.7rem;
+  line-height: 1.3;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@media (min-width: 700px) {
+  .artist-card-content {
+    padding: 1.1rem 0.9rem 0.9rem;
+  }
+
+  .artist-card-name {
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .artist-card-bio {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
 }
 </style>

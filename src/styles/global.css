@@ -1932,12 +1932,12 @@ img {
 .artist-profile {
   display: grid;
   gap: 1.5rem;
-  margin: 1.25rem auto 0;
+  margin: 2.5rem auto 0;
   max-width: 900px;
 }
 
 .artist-photo-wrap {
-  max-width: 150px;
+  max-width: 160px;
   margin: 0 auto;
 }
 
@@ -1945,7 +1945,8 @@ img {
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
-  border-radius: 28px;
+  display: block;
+  border-radius: 18px;
   border: 1px solid var(--line);
   background: var(--paper-alt);
 }
@@ -2306,13 +2307,19 @@ img {
   }
 
   .artist-profile {
-    grid-template-columns: minmax(220px, 300px) 1fr;
+    grid-template-columns: 260px 1fr;
     align-items: start;
-    column-gap: 2rem;
+    column-gap: 2.5rem;
+  }
+
+  .artist-photo-wrap {
+    max-width: 100%;
+    margin: 0;
   }
 
   .artist-name {
     text-align: left;
+    margin-bottom: 1.25rem;
   }
 
 }
