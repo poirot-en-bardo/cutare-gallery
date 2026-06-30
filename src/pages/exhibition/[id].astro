@@ -307,8 +307,8 @@ const exhibitionPreviewGroups = exhibition
                   </span>
                 ))}
               </span>
-              <span class="tiparituri-tile-name">{group.artist.name}</span>
             </button>
+            <a href={withBase(`/artist/${group.artist.id}/`)} class="tiparituri-tile-name">{group.artist.name}</a>
           </article>
         ))}
       </div>
